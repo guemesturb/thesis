@@ -1,0 +1,431 @@
+%===============================================================================
+\chapter{Wall turbulence and coherent structures}\label{ch02}
+%===============================================================================
+%
+
+Following the concepts introduced in Chapter~\ref{ch01}, this chapter focuses on wall-bounded flows.
+Wall-bounded turbulent flows are a type of shear flow where the turbulent cascade is fed with the energy extracted from the instabilities originated in the mean-velocity gradients along the inhomogeneous directions.
+
+The content of this chapter is divided into three main sections.
+Section~\ref{ch02:s1} introduces the main characteristics of wall turbulence, establishing the nomenclature and the dimensionless parameters that will be used in the rest of the present thesis to compare the different types of flows.
+Next, $\S$~\ref{ch02:s2} focuses on the dynamics of coherent structures that populate wall-bounded flows.
+Finally, $\S$~\ref{ch02:s3} shows the effect that these coherent structures have on the wall quantities, as well as the available methodologies in the literature to infer the flow state from those wall quantities.
+In order to maintain a constant nomenclature throughout this thesis, the main dimensions of space and velocity that are used in both Part I and Part II are defined here.
+Lower-case letters $x$, $y$, and $z$ refer to the streamwise, wall-normal and spanwise directions respectively, with their corresponding instantaneous fluctuating velocities indicated as $u$, $v$ and $w$.
+Pressure fluctuations are referred to as $p$, while the streamwise and spanwise wall-shear stresses are referred to as $\tau_{w_x}$ and $\tau_{w_z}$ respectively, using the subindex $w$ as indication of wall quantities.
+Time-averaged quantities are referred with upper case letters, while root-mean-squared quantities are indicated with $^{\prime}$.
+
+%-------------------------------------------------------------------------------
+\section{The structure of wall-bounded turbulence}\label{ch02:s1}
+%-------------------------------------------------------------------------------
+
+The interaction between the surface of a body and the flow that surrounds it gives the rise to wall turbulence.
+The geometry of these bodies can be overly complex.
+However, to better understand the involved flow physics, it is worth simplifying the geometrical parameters.
+Therefore, the study of wall turbulence is usually focused on three canonical problems, namely channel, pipe and boundary-layer flows.
+Channel flows are used to describe the flow between two parallel infinite plates, which is driven by a favourable pressure gradient parallel to the plates, and whose statistics are independent in the wall-parallel directions.
+Pipe flows are similar, since they are also driven by a favourable pressure gradient.
+However, the flow is confined by a circular boundary in the plane normal to the pressure gradient, thus forming the pipe geometry.
+Last but not least, turbulent boundary layers refer to the region formed when a non-turbulent flow passing parallel to a smooth flat plate decreases its velocity until matching the wall velocity.
+Unlike channel and pipe flows, boundary layers develop along the direction of the pressure gradient, which for this type of flow could be favourable, but also zero or adverse.
+These flows are often characterized in terms of their length scale, which indicates the size in the wall-normal direction of the largest structures present in these flows.
+These length scales are the half-height $h$ of the channel, the radius $R$ of the pipe, and the boundary-layer thickness $\delta_{99}$, but can be defined overall as $\delta$.
+Figure~\ref{ch02:fig01} provides a schematic representation of each of these canonical flows.
+Apart from $\delta$, it is also important to define another characteristic that divides these canonical flows, which is the boundary condition far from the wall.
+With this in mind, canonical flows can be divided into internal (pipe and channel) and external (boundary layer) flows.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/ch02_fig01.pdf}
+  \caption{\label{ch02:fig01}Schematic view of the three canonical flows in wall turbulence, which are a) channel, b) pipe and c) boundary-layer flows.}
+\end{figure}
+
+
+The Reynolds number provides the ratio between the inertia and viscous forces acting on the flow, which is intimately related to how turbulent a flow is.
+There are many definitions for this parameter and not all of them are commonly used in the study of wall turbulence.
+The definition that is most used in wall-turbulence research is the friction-based Reynolds number, or Kárman number, which is defined as:
+\begin{equation}
+  Re_{\tau}=\frac{\delta u_{\tau}}{\nu},
+  \label{ch02:eq01}
+\end{equation}
+
+\noindent where $\nu$ is the dynamic viscosity of the fluid and $u_{\tau}$ is the wall-friction velocity, defined as:
+\begin{equation}
+  u_{\tau}=\sqrt{\tau_w/\rho},
+\end{equation}
+
+\noindent where $\rho$ is the working fluid density.
+This velocity is fictitious, and it is based on the wall-shear stress $\tau_w$.
+The viscous length scale, i.e., the smallest eddy scale in the flow, can be defined as:
+\begin{equation}
+  \ell^*=\frac{\nu}{u_{\tau}},
+  \label{ch02:eq02}
+\end{equation}
+
+\noindent thus equation~\ref{ch02:eq01} can be redefined as the ratio between the largest and smallest scales present in the flow:
+\begin{equation}
+  Re_{\tau}=\frac{\delta}{\ell^*}.
+  \label{ch02:eq03}
+\end{equation}
+
+\noindent Following these definitions, the superscript $+$ indicates that a quantity has been scaled with viscous quantities, using $u_{\tau}$ for velocities and $\ell^*$ for distances.
+
+For turbulent boundary layers with freestream velocity $U_{\infty}$, it is important to define the displacement thickness:
+\begin{equation}
+  \delta^*(x)=\int_0^{\infty}\biggl(1-\frac{U(x,y)}{U_{\infty}}\biggl)dy,
+  \label{ch02:eq03}
+\end{equation}
+
+\noindent and momentum thickness:
+\begin{equation}
+  \theta(x)=\int_0^{\infty}\frac{U(x,y)}{U_{\infty}}\biggl(1-\frac{U(x,y)}{U_{\infty}}\biggl)dy,
+  \label{ch02:eq04}
+\end{equation}
+
+\noindent as integral quantities of the flow.
+The former provides a value for the amount of fluid mass displaced by the wall, while the latter does the same for the momentum, and they can used to the defined the displacement-thickness-based:
+\begin{equation}
+  Re_{\delta^*}=\frac{\delta^*U_{\infty}}{\nu},
+  \label{ch02:eq05}
+\end{equation}
+\noindent and the momentum-thickness-based:
+\begin{equation}
+  Re_{\theta}=\frac{\theta U_{\infty}}{\nu},
+  \label{ch02:eq06}
+\end{equation}
+\noindent Reynolds numbers.
+Since the boundary layer is not homogeneous along the streamwise direction, these quantities evolve in this direction, and they are useful to quantify whether a turbulent boundary layer is well-behaved i.e., it is not affected by the transition-to-turbulence or non-equilibrium effects, or not.
+
+The presence of the wall imposes a hierarchical organization of different-size eddies, since the centre of an eddy with characteristic size $\ell$ cannot be closer to the wall than $\ell/2$.
+Consequently, the wall-normal distance to the wall can be used to provide a structured view of wall-bounded turbulence.
+If the viscous scaling previously defined is used, Navier-Stokes equations can be operated to define a function describing the mean-velocity profile as:
+\begin{equation}
+  U^+=f(y^+),
+  \label{ch02:eq07}
+\end{equation}
+
+\noindent which is only dependent of the wall distance.
+This definition, proposed by \citet{prandtl1925bericht} and commonly known as \textit{law of the wall}, only stands when $y/\delta\ll1$, thus defining the first region of the flow, the \textit{inner layer}.
+There is not a specific distance where this region starts, but it is widely accepted as $y/\delta<0.1$.
+At closer distances to the wall, when $y^+\sim\mathcal{O}(1)$, equation~\ref{ch02:eq07} can be redefined as:
+\begin{equation}
+  U^+=y^+,
+  \label{ch02:eq08}
+\end{equation}
+
+\noindent which implies that Reynolds shear stresses are negligible compared to viscous shear stresses.
+This region is the \textit{viscous sublayer}, and stands for $y^+\lesssim5$ \citep{reichardt1951vollstandige}.
+Just above this layer is the \textit{buffer layer}, where the viscous effects are still important but the turbulent shear stresses are not negligible.
+The limits of this region are not exact, but it is commonly accepted to be $10\lesssim y^+\lesssim 100$.
+
+Using outer scaling and dimensional analysis, \citet{von1930mechanische} proposed a function for the mean-velocity profile of the form:
+\begin{equation}
+  \frac{U_o - U(y)}{u_{\tau}} = F\biggl(\frac{y}{\delta}\biggl),
+  \label{ch02:eq09}
+\end{equation}
+
+\noindent where the subindex $o$ stands for outer.
+Equation~\ref{ch02:eq09}, known as the \textit{velocity defect law}, is applicable in the \textit{outer layer}, where the viscous effects are negligible.
+Since this is true when $y/\delta\sim\mathcal{O}(1)$, the outer layer lies in wall distances where $y^+\gtrsim100$.
+
+For a sufficiently large Reynolds number $Re_{\tau}\gg1$, there is a region of the flow where $y/\delta<0.1$ and $y^+\gtrsim100$, which imposes that solutions for equations~\ref{ch02:eq07} and \ref{ch02:eq09} must coexist.
+This region is known as the \textit{logarithmic layer}, since the mean-velocity profile of the flow can be described by a logarithmic function as:
+\begin{equation}
+  U^+ = \frac{1}{\kappa}\log(y^+)+A,
+  \label{ch02:eq10}
+\end{equation}
+
+\noindent where constants $\kappa$ and $A$ are referred as universal, although scattered values can be found in the literature \citep{george2007there,marusic2010wall,bailey2014estimating}.
+Figure~\ref{ch02:fig02} provides a schematic representation of the different regions.
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/ch02_fig02.pdf}
+  \caption{\label{ch02:fig02}Schematic overview of the structure of a wall-bounded turbulent flow with $Re_{\tau}\approx10000$.}
+\end{figure}
+
+With the structured view of wall-bounded flows came the necessity of defining a model describing its dynamic mechanism.
+Since the first attempt of \citet{theodorsen1952mechanisms}, several models have been proposed.
+One of the most accepted models is the \textit{attached-eddy hypothesis} proposed by \citet{townsend1976structure}.
+This model defines the logarithmic layer as a region where the energy production and dissipation rates are in balance, describing it as the superposition of several wall-attached vortices of different size aligned in the streamwise direction.
+Furthermore, \citet{perry1982mechanism} contributed to this view by proving mathematically that these structures should grow linearly from their birth until death.
+Another model is the \textit{hairpin forest} proposed by \citet{adrian2000vortex}, which describes wall turbulence as a series of horseshoe-vortex packets.
+Although instantaneous realizations have been provided for transitional boundary layers \citep{wu2010transitional}, there is no evidence of their instantaneous existence for high enough Reynolds numbers \citep{schlatter2010assessment,sillero2013one}.
+
+%-------------------------------------------------------------------------------
+\section{On the presence of coherent structures}\label{ch02:s2}
+%-------------------------------------------------------------------------------
+
+This section is intended to provide a panoramic view of the current knowledge about the coherent structures populating wall-bounded turbulent flows, but for a deeper and exhaustive review the reader is referred to the work of \citet{jimenez2018coherent}.
+The first quantitative evidences of the existence of coherent structures in the viscous and buffer layers were provided by experimental studies.
+These structures, known as \textit{u-streaks}, were found with two-point correlations of hot-wire measurements, and were characterized as regions elongated in the streamwise direction with high and low momentum \citep{kline1967structure,favre1967structure, blackwelder1972time}.
+These near-wall structures are typically separated in the spanwise direction by $z^+=100$, and have quasi-streamwise vortices staggered between them \citep{robinson1991coherent,jimenez1991minimal}.
+Furthermore, \citet{jimenez1991minimal} showed that these streaks and vortices sustain an autonomous nonlinear cycle by themselves, without the assistance of energy coming from the outer region, thus proposing a minimal-flow unit to sustain turbulence.
+This autonomous cycle has been extended in several works \citep{waleffe1995hydrodynamic, jimenez1999autonomous, moehlis2004low}, but it can be resumed as follows:
+The quasi-streamwise vortices, with streamwise length scales of the order of 100 $\ell_x^+$, generate streaks by stirring energy from the mean-velocity profile, which has a steep gradient at those wall distances.
+The generated positive- and negative-momentum streaks, with streamwise length scales of the order of $\mathcal{O}(10^3)$ $\ell_x^+$, become unstable at some point, creating new vortices.
+
+While \citet{blackwelder1972time} also provided statistical evidences of the presence of coherent structures in the logarithmic layer, its instantaneous structure could not be verified until the advent of PIV allowed to acquire instantaneous velocity fields \citep{ganapathisubramani2003characteristics, tomkins2003spanwise}.
+These new insights were complemented by computational advances in numerical simulations that allowed to study coherent structures from a structural point of view \citep{hoyas2006scaling}.
+One of the most relevant findings is the imprint that coherent structures populating the logarithmic layer have in the near-wall region \citep{hoyas2006scaling, hoyas2008reynolds,hutchins2007large, mathis2009large,dogan2019quantification}.
+This imprint can be ascribed to the linear superposition of scales in the wall-normal direction, but also to the amplitude modulation of the small-scale velocity fluctuations originated from the large coherent structures.
+The view of minimal-flow units was also extended to the logarithmic region by \citet{flores2010hierarchy}, showing the presence of the same elongated u-streak and quasi-periodic vortices but with a turbulent behaviour.
+The size of the minimum-flow unit restricts the range of scales that can be accommodated within, where the minimum size to prevent turbulence from decaying is that proposed by \citet{jimenez1991minimal}.
+This gives an insight that coherent structures do not have a single size, but rather overlap over a range of scales, affecting each other, which agrees with the aforementioned attached-eddy hypothesis proposed by \citet{townsend1976structure}.
+This theory is also endorsed by the structural analysis of regions with high tangential Reynolds shear stress carried out by \citet{lozano2012three}.
+When moving towards or away from the wall, these structures are referred as \textit{sweeps} and \textit{ejections} respectively, and they are located in the side wall of the long u-streak structures present in the flow.
+In some sense, they can be interpreted as manifestations of the quasi-streamwise vortices found in the minimal boxes of \cite{jimenez1991minimal} and \citet{flores2010hierarchy}.
+Moreover, \citet{ganapathisubramani2003characteristics} reported in the past that sweeps and ejections contribute significantly to the total amount of Reynolds stress, thus becoming significantly relevant for any wall-bounded flow.
+In the same manner, \citet{del2006self} showed that structures defined with the discriminant of the velocity gradient, usually known as \textit{vortex clusters}, can also be related to the long u-streak structures present in the flow.
+Figure~\ref{ch02:fig03} shows examples of these types of coherent structures.
+It is important to remark that these structures could be found detached from or attached to the wall.
+While the former are more numerous, the latter contribute almost the entire volume and are responsible for most of the total momentum transfer \citep{lozano2014time}.
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/ch02_fig03}
+  \caption{\label{ch02:fig03} a) Vortex cluster and b) sweep wall-attached structures. Adapted from \citet{lozano2014time}.}
+\end{figure}
+
+Regarding their size, coherent structures are of the order of several $\delta$ in the streamwise direction, as reported for internal flows in several works \citep{kim1999very,guala2006large,monty2007large}.
+In the case of turbulent boundary layers, \citet{hutchins2007evidence} showed that coherent structures in the logarithmic layer can reach similar lengths, but they present a meandering behaviour in the spanwise direction.
+One effect of this meandering behaviour can be observed in the energy spectra reported by \citet{monty2009comparison}, where the outer energy peak does not appear for external flows.
+Subsequently, the differences in the outer region between internal and external flows extend up to the buffer and viscous layers.
+Furthermore, \citet{hutchins2007large} provided experimental evidences that coherent structures modify the near-wall scales by means of linear superposition and amplitude modulation.
+This effect was later quantified by \citet{mathis2009large}.
+
+The new computational and storage resources that have become available in the last decade have made possible to study coherent structures from a dynamical point of view i.e., considering their evolution over time.
+This is the case of the work reported by \citet{lozano2014time}, where sweeps and ejections were tracked along their \textit{lives}.
+The results show that large coherent structures attached to the wall have lifetimes proportional to their sizes.
+This is a significant property for any flow control technique, since coherent structures responsible for the majority of the momentum transfer are those that last more and thus could be easier to control with an actuation.
+Temporal analysis has also been taken into account in the work of \citet{encinar2020momentum}, which introduces a band-pass filtering method to extend the analysis of sustained turbulence proposed by \citet{jimenez1991minimal} to structures of arbitrary size.
+The identified filtered structures are consistent with the sweeps and ejections of \citet{lozano2012three} and \citet{lozano2014time}, and their length and time scales exhibit a self-similar behaviour with respect to the proposed filter.
+
+Among the different techniques that have been used to study turbulence, the use of data-driven methods stands out.
+$\S$~\ref{ch02:s3} presents the concept of proper orthogonal decomposition (POD), one of those data-driven methods that have been previously applied to turbulence.
+
+%-------------------------------------------------------------------------------
+\section{Coherent structures with proper orthogonal decomposition}\label{ch02:s3}
+%-------------------------------------------------------------------------------
+
+Principal component analysis is a statistical tool developed in the works of \citet{pearson1901liii} and \citet{hotelling1933analysis} that decomposes any signal as the linear combination of a set of orthonormal basis functions, allowing to capture hidden patterns in large datasets.
+Introduced in the area of fluid mechanics by \citet{lumley1967structure} under the name of POD, it allows to decompose a fluctuating velocity field $\boldsymbol{u}(\boldsymbol{x}, t)$ as a linear combination of orthonormal basis functions, composed of spatially orthonormal functions $\boldsymbol{\phi}_i(\boldsymbol{x})$ times a temporal orthonormal basis, such that:
+\begin{equation}
+  \boldsymbol{u}(\boldsymbol{x}, t) \approx \sum_{i=1}^{N_m} \psi_i(t) \sigma_i \boldsymbol{\phi}_i(\boldsymbol{x}),
+  \label{ch03:eq01}
+\end{equation}
+
+\noindent with $N_m$ being the number of POD modes, $\sigma_i$ weighting the contribution of each mode to each instantaneous field and $\psi_i(t)$ referring to the time coefficients or temporal modes.
+Note that when $N_m$ tends to infinity, equation~\ref{ch03:eq01} becomes an equality.
+
+In the original work of \citet{lumley1967structure}, POD aims to maximize the projection of the velocity fluctuations $\boldsymbol{u}(\boldsymbol{x}, t)$ on their spatial basis $\boldsymbol{\phi}_i(\boldsymbol{x})$ that belong to a general Hilbert space $\mathcal{H}$:
+\begin{equation}
+  \max_{\boldsymbol{\phi}_i(\boldsymbol{x})\epsilon\mathcal{H}}\biggl\langle\int_{\Omega} \bigl(\boldsymbol{u}(\boldsymbol{x}, t), \boldsymbol{\phi}_i(\boldsymbol{x})\bigl)d\boldsymbol{x}\biggl\rangle,
+  \label{ch03:eq02}
+\end{equation}
+
+\noindent where $\bigl(\cdot,\cdot\bigl)$ indicates a scalar product, $\Omega$ refers to the entire observation domain and $\bigl\langle\cdot,\cdot\bigl\rangle$ indicates an ensemble average.
+The choice of the basis functions $\boldsymbol{\phi}_i(\boldsymbol{x})$ affects the solution of equation~\ref{ch03:eq02}.
+In the case of POD, this set of basis functions is chosen to be orthonormal i.e., fulfilling the orthogonality constraint and having unitary norm:
+\begin{equation}
+  \biggl\langle\int_{\Omega} \bigl(\boldsymbol{\phi}_i(\boldsymbol{x}), \boldsymbol{\phi}_j(\boldsymbol{x})\bigl)d\boldsymbol{x}\biggl\rangle=\delta_{ij},
+  \label{ch03:eq03}
+\end{equation}
+
+\noindent where $\delta_{ij}$ is the Kronecker delta.
+\citet{holmes2012turbulence} shows that the problem defined by equations~\ref{ch03:eq02}-\ref{ch03:eq03} is equivalent to finding the solution of the Fredholm equation:
+\begin{equation}
+  \biggl\langle\int_{\Omega} \bigl(\mathcal{R}(\boldsymbol{x},\boldsymbol{x}^{\prime}), \boldsymbol{\phi}_i(\boldsymbol{x^{\prime}})\bigl)d\boldsymbol{x^{\prime}}\biggl\rangle=\sigma_i^2\boldsymbol{\phi}_i(\boldsymbol{x}),
+  \label{ch03:eq04}
+\end{equation}
+
+\noindent where $\mathcal{R}(\boldsymbol{x},\boldsymbol{x}^{\prime})$ is the two-point spatial correlation.
+Since any combination of the first $r$ POD modes composes an orthonormal basis that minimizes the Frobenius norm of the flow field, POD provides flow field modes ordered by their energy contribution.
+Furthermore, \citet{holmes2012turbulence} showed that eigenfunctions of equation~\ref{ch03:eq04} are Fourier modes if the two-point correlation is \textit{homogeneous}, i.e. it is \textit{translation invariant}.
+
+An alternative approach to compute the POD modes of a set of instantaneous turbulent velocity fields is the \textit{snapshot method} suggested by \citet{sirovich1987turbulence}.
+This method proposes to project $\boldsymbol{u}(\boldsymbol{x}, t)$ on their temporal basis $\psi_i(t)$, such that:
+\begin{equation}
+  \max_{\psi_i(t)\epsilon\mathcal{H}}\biggl\langle\int_{\mathcal{T}} \bigl(\boldsymbol{u}(\boldsymbol{x}, t), \psi_i(t)\bigl)dt\biggl\rangle,
+  \label{ch03:eq05}
+\end{equation}
+
+\noindent where $\mathcal{T}$ refers to the entire temporal domain.
+Equation~\ref{ch03:eq04}, together with the orthogonality condition for $\psi_i(t)$, defined as:
+\begin{equation}
+  \biggl\langle\int_{\mathcal{T}} \bigl(\psi_i(t), \psi_j(t)\bigl)dt\biggl\rangle=\delta_{ij},
+  \label{ch03:eq06}
+\end{equation}
+
+\noindent compose a problem defined by the Fredholm equation such that:
+\begin{equation}
+  \biggl\langle\int_{\Omega} \bigl(\mathcal{R}_t(t,t^{\prime}), \psi_i(t^{\prime})\bigl)dt^{\prime}\biggl\rangle=\sigma_i^2\psi_i(t),
+  \label{ch03:eq07}
+\end{equation}
+
+\noindent where $\mathcal{R}_t(t,t^{\prime})$ is the two-point temporal correlation.
+This approach is useful when the available temporal information is significantly smaller than the spatial one, which is often the case for experimental and numerical flow fields in which the available number of spatial points is larger than the number of available snapshots.
+
+One of the first applications of POD to extract coherent structures in wall turbulence was shown by \citet{moin1989characteristic}.
+Their results showed that coherent structures detected with POD contribute to a significant part of the turbulent kinetic energy.
+A similar approach was followed by \citet{gurka2006pod} to study coherent structures based on vorticity measurements.
+\citet{sanmiguel2017adverse} used POD to study the flow organization of turbulent boundary layers subjected to an adverse pressure gradient.
+More recently, \citet{discetti2019characterization} applied this approach to study experimentally the coherent structures present in a turbulent pipe flow.
+The advantage of studying coherent structures with this method resides in that the most energetic POD modes are ascribed to the largest structures present in turbulent flows \citep{wu2014study}.
+This statement is based on the fact that the first POD mode contains most of the energy of coherent structures with characteristic lengths larger than the temporal or spatial domain in which POD is applied, thus becoming a useful tool to identify and represent coherent structures with a data-driven approach.
+
+Apart from fluid mechanics, POD has been extensively applied in many research areas, such as data compression \citep{andrews1967adaptive}, signal analysis \citep{algazi1969optimality}, oceanography \citep{preisendorfer1988principal} or astrophysics \citep{soummer2012detection}, to name a few.
+In the case of fluid mechanics, POD has not been only used to study coherent structures.
+For example, \citet{mendez2017pod} proposed a method to remove the background from PIV images, which is especially useful for eliminating static reflections that occur when the PIV laser hits an object.
+Nonetheless, the classical application of the method is the data decomposition of flow fields, for which several examples can be found.
+POD has been used to apply a decomposition of the data in several flow topologies, such as the cylinder wake \citep{deane1991low,feng2011proper,raiola2016wake}, turbulent jets \citep{glauser1991dynamics,berry2017application,mendez2019multi}, flapping wings \citep{liang2015symmetry,troshin2018modeling,raiola2021data}, wall-mounted obstacles \citep{mallor2018wall,mallor2019modal,guemes2019flow}, or mixing layers \citep{delville1999examination,citriniti2000reconstruction,kaiser2014cluster} among many others \citep{rowley2017model}.
+It is worth noting that many of these works have also used POD to study the coherent structures present in turbulent shear flows.
+Figure~\ref{ch02:fig04} shows a collection of coherent structures identified for free- and wall-shear turbulent flows.
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/ch02_fig04}
+  \caption{\label{ch02:fig04} First POD mode $\boldsymbol{\phi}_1(\boldsymbol{x})$ for a) experimental turbulent boundary layer, b) experimental swirling jet, c) numerical turbulent pipe flow and d) obstacle wake immersed in a turbulent boundary layers. Data for panel a) comes from an experimental campaign carried out during the development of the present thesis in the wind-tunnel facility at Universidad Carlos III de Madrid. Panels b), c) and d) have been adapted from \citet{ceglia2014three},  \citet{hellstrom2014energetic}, and \citet{guemes2019flow} respectively.}
+\end{figure}
+
+%-------------------------------------------------------------------------------
+\subsection{Discrete formulation of proper orthogonal decomposition}\label{ch02:s31}
+%-------------------------------------------------------------------------------
+
+Commonly, the data acquired from experiments or numerical simulations come on discrete form, i.e., $N_t$ samples are acquired on a spatial grid composed of $N_p$ grid points, therefore requiring a discrete formulation.
+The three fluctuating velocity components of each instantaneous field are rearranged into a snapshot matrix $U$ such as:
+\begin{equation}
+    \mathbf{U}=\begin{bmatrix}
+    u_{x_1}^{t_1} & \dots  & u_{x_{N_p}}^{t_1} & v_{x_1}^{t_1} & \dots  & v_{x_{N_p}}^{t_1} & w_{x_1}^{t_1} & \dots  & w_{x_{N_p}}^{t_1}\\
+    \vdots         & \ddots & \vdots         & \vdots         & \ddots & \vdots  & \vdots         & \ddots & \vdots \\
+    u_{x_1}^{t_{N_t}} & \dots  & u_{x_{N_p}}^{t_{N_t}} & v_{x_1}^{t_{N_t}} & \dots  & v_{x_{N_p}}^{t_{N_t}}  & w_{x_1}^{t_{N_t}} & \dots  & w_{x_{N_p}}^{t_{N_t}}
+    \end{bmatrix}.
+    \label{ch03:eq08}
+\end{equation}
+
+The ratio $N_t/N_p$ conditions the choice between the original method proposed by \citet{lumley1967structure} and snapshot method of \citet{sirovich1987turbulence}.
+When $N_t/N_p>1$, POD temporal modes can be evaluated solving the eigenvalue problem of the temporal correlation matrix $T$ as follows:
+\begin{equation}
+    \mathbf{T}=\mathbf{U}\mathbf{U}^T=\boldsymbol{\Psi}\boldsymbol{\Lambda}\boldsymbol{\Psi}^T,
+    \label{ch03:eq09}
+\end{equation}
+
+\noindent where $\boldsymbol{\Psi}$ is a matrix whose rows contain the temporal POD modes, while $\boldsymbol{\Lambda}$ is a diagonal matrix with elements $\lambda_i=\sigma_i^2$, which represent the variance content of each mode.
+Note that the singular value decomposition of the temporal correlation matrix $\mathbf{T}$ shown in equation~\ref{ch03:eq09} is the discrete version of the Fredholm equation presented in equation~\ref{ch03:eq07}.
+Considering that equation~\ref{ch03:eq01} can be expressed in matrix form as:
+\begin{equation}
+  \boldsymbol{U} =  \boldsymbol{\Psi}\boldsymbol{\Sigma}\boldsymbol{\Phi}^T,
+  \label{ch03:eq10}
+\end{equation}
+
+\noindent where $\Sigma$ is a diagonal matrix containing the square root of the mode variances $\sigma_i$, the spatial POD modes $\boldsymbol{\phi}_i(\boldsymbol{x})$ are obtained by projecting the flow fields on the temporal POD modes computed with equation~\ref{ch03:eq09} as follows:
+\begin{equation}
+  \mathbf{\Phi}^T =   \mathbf{\Sigma^{-1}}\mathbf{\Psi}^T\mathbf{T}.
+  \label{ch03:eq11}
+\end{equation}
+
+In the cases where $N_t/N_p<1$, the discrete approach can be formulated to solve the spatial correlation matrix:
+\begin{equation}
+    \mathbf{S}=\mathbf{U}^T\mathbf{U}=\boldsymbol{\Phi}\boldsymbol{\Lambda}\boldsymbol{\Phi}^T.
+    \label{ch03:eq12}
+\end{equation}
+
+%-------------------------------------------------------------------------------
+\section{The imprint of coherent structures at the wall}\label{ch02:s4}
+%-------------------------------------------------------------------------------
+
+The aforementioned effect that coherent structures have on the near-wall region can be extended to the wall if the linear behaviour of the mean-velocity profile in the viscous sublayer is taken into account.
+Early studies already showed the connection between coherent structures and wall-shear stresses \citep{brown1977large}, and more evidences were provided by \citet{orlu2011fluctuating}, which showed such relation in terms of energy spectra at the wall.
+Additionally, \citet{sanmiguel2018wall} gave an insight of this wall imprint, showing the conditional average of the wall-normal fluctuating velocity with the pressure fluctuations at the flow for a turbulent channel flow.
+
+Considering the imprint that coherent structures have on the wall, several methods that try to reconstruct wall-bounded flows from wall information can be found in the literature.
+One of those methods is based on the linear stochastic estimation (LSE), originally proposed by \citet{adrian1979conditional}, and exploits the self-similar linear scaling of the wall-attached eddies along the wall-normal direction.
+Using statistical information, LSE provides a linear approximation of an unknown quantity by solving the following minimization problem:
+\begin{equation}
+  \bigl\langle \bigl|\boldsymbol{u}(\boldsymbol{x}, t) - \boldsymbol{u}^{\dagger}(\boldsymbol{x}, t)\bigl|^2\bigl\rangle = \bigl\langle \bigl|\boldsymbol{u}(\boldsymbol{x}, t) - \mathcal{A}(\boldsymbol{x},\boldsymbol{x^{\prime}}) \boldsymbol{u}(\boldsymbol{x^{\prime}}, t)\bigl|^2\bigl\rangle,
+  \label{ch02:eq11}
+\end{equation}
+
+\noindent where superindex $\dagger$ refers to predicted quantities. The operator $ \mathcal{A}(\boldsymbol{x},\boldsymbol{x^{\prime}})$ can be obtained by solving the following system of linear equations:
+
+\begin{equation}
+  \bigl\langle \boldsymbol{u}(\boldsymbol{x}, t) \boldsymbol{u}(\boldsymbol{x^{\prime}}, t)\bigl\rangle=\mathcal{A}(\boldsymbol{x},\boldsymbol{x^{\prime}})\bigl\langle \boldsymbol{u}(\boldsymbol{x^{\prime}}, t) \boldsymbol{u}(\boldsymbol{x^{\prime}}, t)\bigl\rangle,
+  \label{ch02:eq12}
+\end{equation}
+
+\noindent where $\bigl\langle \boldsymbol{u}(\boldsymbol{x}, t) \boldsymbol{u}(\boldsymbol{x^{\prime}}, t)\bigl\rangle$ contains the cross-correlation information between the input and output variables, while $\bigl\langle \boldsymbol{u}(\boldsymbol{x^{\prime}}, t) \boldsymbol{u}(\boldsymbol{x^{\prime}}, t)\bigl\rangle$ is the autocorrelation information of the input variables.
+The linear operator $\mathcal{A}(\boldsymbol{x},\boldsymbol{x^{\prime}})$ obtained from LSE can be used to reconstruct an instantaneous velocity as:
+\begin{equation}
+  \boldsymbol{u}^{\dagger}(\boldsymbol{x},t)=\mathcal{A}(\boldsymbol{x},\boldsymbol{x^{\prime}})\boldsymbol{u}(\boldsymbol{x^{\prime}}, t),
+  \label{ch02:eq13}
+\end{equation}
+
+\noindent where $\boldsymbol{u}(\boldsymbol{x^{\prime}}, t)$ does not need to be necessarily a velocity quantity.
+In the beginning LSE was used to obtain conditional averages based on events in isotropic flows and was later applied to a variety of cases.
+The work of \citet{encinar2018reconstructing} and \citet{encinar2019logarithmic} exploited the reconstructing capabilities of LSE by showing that wall information can be used to reconstruct turbulent flow fields at large Reynolds numbers.
+
+Based on the findings of linear superposition and amplitude modulation \citep{hutchins2007large,mathis2009large}, Marusic and coworkers presented a method to estimate near-wall velocity fluctuations from the logarithmic layer \citep{marusic2010predictive,mathis2011predictive}.
+This model is based on the fact that current measuring technologies do not have the spatial and temporal resolution to capture the velocity fluctuations in the near-wall region at the Reynolds numbers of typical industrial applications.
+Assuming the linearity of the mean-velocity profile at the viscous sublayer, this model was extended by \citet{mathis2013estimating} to predict the shear-stress fluctuations at the wall.
+Unfortunately, the mathematical description of the model is not invertible i.e., the coherent structures at the logarithmic layer cannot be predicted from the wall.
+A refined version of the predictive model of \citet{marusic2010predictive} was provided \citet{baars2016spectral}, by adding to the model a spectral LSE.
+This technique, originally proposed by \citet{tinney2006spectral}, translates LSE to the frequency space to remove noise from coherent sources.
+Another option is to use the linearized version of the Navier-Stokes equations as a predictive model.
+This technique was applied to moderate-Reynolds-number flows by \citet{illingworth2018estimating}, with successful results when reconstructing the large-scale coherent structures present in the flow.
+
+Another linear method commonly used to reconstruct turbulent flow fields from a reduced set of measurements is the extended proper orthogonal decomposition (EPOD), originally proposed by \citet{maurel2001extended}.
+EPOD is a statistical tool that allows to draw the correlation between the flow features extracted from two different datasets.
+For instance, given a signal $\boldsymbol{w}(\boldsymbol{x}, t)$ containing the pressure and shear-stress fluctuations at the wall, it is possible to calculate its extended POD modes as its projection onto the temporal basis defined for $\boldsymbol{u}(\boldsymbol{x}, t)$ as:
+\begin{equation}
+  \sigma_i^e\boldsymbol{\phi}_i^e(\boldsymbol{x})=\biggl\langle\int_{\Omega} \bigl(\psi_i(t),\boldsymbol{w}(\boldsymbol{x}, t)\bigl)d\boldsymbol{x}\biggl\rangle,
+  \label{ch03:eq13}
+\end{equation}
+
+\noindent where superindex $e$ stands for \textit{extended}.
+The strength of equation~\ref{ch03:eq13} is that allows to extract the correlation between synchronized measurements through the extended POD modes, being possible to quantify the relationship between the coherent structures populating each one of them.
+
+Rearranging the wall information contained in $\boldsymbol{w}(\boldsymbol{x}, t)$ in a matrix form:
+\begin{equation}
+  \mathbf{W}=\begin{bmatrix}
+      \tau_{w_{x_{x_1}}}^{t_1} & \dots  & \tau_{w_{x_{N_p}}}^{t_1} & \tau_{w_{z_{x_1}}}^{t_1} & \dots  & \tau_{w_{z_{N_p}}}^{t_1} & p_{w_{x_1}}^{t_1} & \dots  & p_{w_{N_p}}^{t_1}\\
+      \vdots         & \ddots & \vdots         & \vdots         & \ddots & \vdots  & \vdots         & \ddots & \vdots \\
+      \tau_{w_{x_{x_1}}}^{t_{N_t}} & \dots  & \tau_{w_{x_{N_p}}}^{t_{N_t}} & \tau_{w_{z_{x_1}}}^{t_{N_t}} & \dots  & \tau_{w_{z_{N_p}}}^{t_{N_t}}  & p_{w_{x_1}}^{t_{N_t}} & \dots  & p_{w_{N_p}}^{t_{N_t}}
+      \end{bmatrix},
+  \label{ch03:eq14}
+\end{equation}
+
+\noindent and considering that $\mathbf{W}$ can be decomposed as:
+\begin{equation}
+  \boldsymbol{W} =  \boldsymbol{\Psi_w}\boldsymbol{\Sigma_w}\boldsymbol{\Phi_w}^T,
+  \label{ch03:eq15}
+\end{equation}
+
+\noindent it is possible to express equation~\ref{ch03:eq13} in discrete form analysis as:
+\begin{equation}
+    \boldsymbol{\Sigma}^e\boldsymbol{\Phi}^{eT}=\boldsymbol{\Psi}\boldsymbol{W}=\boldsymbol{\Psi}\boldsymbol{\Psi_w}\boldsymbol{\Sigma_w}\boldsymbol{\Phi_w}^T=\boldsymbol{\Xi}\boldsymbol{\Sigma_w}\boldsymbol{\Phi_w}^T,
+    \label{ch03:eq16}
+\end{equation}
+
+\noindent where the matrix $\boldsymbol{\Xi}$ contains the correlation between the temporal modes.
+
+Assuming that the POD for both quantities has reached statistical convergence, it is possible to estimate any of the quantities through a linear projection on the extended POD modes as:
+\begin{equation}
+  \boldsymbol{U}^{\dagger} =  \boldsymbol{\Xi}\boldsymbol{\Psi_w}\boldsymbol{\Sigma}\boldsymbol{\Phi}^T.
+  \label{ch03:eq15}
+\end{equation}
+
+\noindent \citet{discetti2018estimation} showed that the energy-optimality of POD modes mentioned in $\S$~\ref{ch02:s3} can then be retained by employing statistical filters on the temporal correlation matrix.
+
+EPOD has been shown to provide accurate predictions in several types of flows, such as the far-field predictions of turbulent jets carried out by \citet{tinney2008low}.
+In the case of wall turbulence, there are multiple examples.
+For instance, \citet{discetti2018estimation} reconstructed wall-normal velocity fields in a channel flow by using a limited amount of velocity probes, equally distributed along the wall-normal direction.
+Their results showed that EPOD could be used to reconstruct large-domain fields in a turbulent channel flow.
+Similar results were obtained for the case of a turbulent pipe flow by \citet{discetti2019characterization}.
+
+
+One of the most important properties of EPOD is its connection to LSE.
+\citet{boree2003extended} proved mathematically that LSE and EPOD are equivalent methods.
+Following \citet{holmes2012turbulence}, this relation can be resumed in two main properties.
+First, suitable averages of LSE events produce POD modes and second, all LSE events are linear combinations of POD modes.
+
+Other examples of predictive models can be found in the literature, like the sequential approach proposed by \citet{suzuki2017estimation} or the transfer functions applied by \citet{sasaki2019transfer}.
+Linear methods exploit the self-similarity of the wall-attached coherent structures when doing the predictions.
+However, they have shown problems when predicting velocity fluctuations at a specific wall distance $y^+$ whose characteristic length scales are smaller than this distance, since these small fluctuations do not have an imprint on the wall.
+It is to be expected that nonlinear methods can significantly outperform linear ones by also modelling the nonlinear part of the relation between coherent structures and their imprint on the wall.

@@ -1,0 +1,318 @@
+%===============================================================================
+\chapter{Deep neural networks as a tool for turbulence}\label{ch03}
+%===============================================================================
+%
+Chapter~\ref{ch02} has shown the capability of POD to provide a compact spatial representation of the coherent structures populating turbulent flows.
+The capabilities of state-of-art methods can cover only the linear part of the relation between coherent structures and their imprint at the wall.
+As it will be shown later in this chapter, neural networks are chosen as estimation methods due to their capability to establish approximations for nonlinear relations, thus paving the way toward the estimation of the nonlinear part of the relation between wall quantities and velocity fields far from the wall.
+
+This chapter presents a simple introduction to deep neural networks in $\S$~\ref{ch03:s1}, while $\S$~\ref{ch03:s2} provides a review of their most recent applications in fluid mechanics.
+Section~\ref{ch03:s3} presents the neural-network architecture developed in the present thesis to reconstruct turbulent flow fields from wall measurements, exploiting the nonlinear capabilities inherent to neural networks and the compact representations of turbulent flow fields provided by POD.
+Finally, $\S$~\ref{ch03:s4} shows how neural networks can be applied to recover wall information, which is especially useful when the amount of wall data is limited, as it is often the case in real-life applications.
+
+%-------------------------------------------------------------------------------
+\section{Introduction to deep neural networks}\label{ch03:s1}
+%-------------------------------------------------------------------------------
+
+Although the terms artificial intelligence (AI), machine learning and deep learning are used interchangeably by the general public, they do not refer to the same concepts.
+The term AI refers to a broad set of techniques that are used for computers to mimic the human behaviour.
+Machine learning is a set of techniques used within AI that apply algorithms to help computers learn models from sets of data, allowing them to solve different regression or classification problems.
+Other research areas, such as robotics or reinforcement learning, are also under the umbrella of AI, at the same level of machine learning.
+Finally, deep learning is a specific branch of machine learning based on the use of neural networks.
+Decision trees, support vector machines, Bayesian networks or genetic algorithms are other types of machine learning techniques at the same level of deep learning.
+
+The \textit{perceptron}, introduced by \citet{rosenblatt1958perceptron}, is the basic unit composing a neural network.
+Devised with the aim of mimicking the behaviour of human neurons, it can be formulated as a mapping function $f$ that transforms a real-valued input vector $\boldsymbol{x}$ to a single output $y$.
+This transformation is linear, and it can be expressed mathematically as:
+\begin{equation}
+  y = f(\boldsymbol{x}) = \sum^{N_i}_{i=1}w_ix_i + b,
+  \label{ch4:eq1}
+\end{equation}
+
+\noindent where $w_i$ are the coefficients of the mapping function, the so-called weights, $b$ is a bias term in the mapping function independent of the inputs, and $N_i$ is the number of inputs contained by $\boldsymbol{x}$.
+Nonlinear effects are incorporated by adding a second mapping function $g$, commonly known as \textit{activation function}, that applies a threshold to $y$ in order to obtain the final output $z$, such as:
+\begin{equation}
+  z =
+  \begin{cases}
+      1, & \text{if } y\geq \theta\\
+      0, & \text{otherwise}
+  \end{cases},
+  \label{ch4:eq2}
+\end{equation}
+
+\noindent where $\theta$ is the threshold value.
+The definition of this activation function is a research area in itself and numerous examples can be found in the literature, such as tangent hyperbolic, sigmoid, or rectified linear unit activation functions among others.
+The activation function used in equation~\ref{ch4:eq2} is known as Heaviside step function.
+
+Perceptrons can be combined within a layer to produce an output vector $\boldsymbol{z}$ of $j$ components such that:
+\begin{equation}
+  z_j =
+  \begin{cases}
+      1, & \text{if } \sum^{N_i}_{i=1}w_{ji}x_i + b_j \geq \theta\\
+      0, & \text{otherwise}
+  \end{cases},
+  \label{ch4:eq3}
+\end{equation}
+
+\noindent and several layers can be stacked together, thus using hidden layers, i.e., layers that see neither the input nor the output.
+Both single-layer and multi-layer perceptrons are fully-connected neural networks, and they are classified as feedforward networks since their weights do not have cyclical connections.
+The use of the term \textit{deep} is not associated with a specific number of layers or neurons per layer, but the more there are, the deeper the network will be.
+
+Despite having been introduced more than 60 years ago, the use of neural networks has not been practical until the last decade, when the advent of powerful computational resources in combination with the backpropagation algorithm for training the weights made them computationally affordable.
+The current concept of backpropagation was introduced by \citet{rumelhart1986learning}.
+Given a loss function $\mathcal{L}$ to evaluate the error of the predicted output with respect to its target value, the weights of the neural network are updated using the gradient of the error with respect to the weights as:
+\begin{equation}
+  \Delta w=-\eta \frac{\partial \mathcal{L}}{\partial w_{ji}}
+  \label{ch4:eq4},
+\end{equation}
+
+\noindent where $\eta$ is the learning-rate parameter.
+
+Fully-connected layers represent just one type of feedforward neural networks.
+For instance, convolutional neural networks (CNNs) were developed mainly during the 80s and the 90s \citep{fukushima1980neocognitron,fukushima1988neocognitron,lecun1989backpropagation,lecun1998gradient} and have been extensively used for image-related problems.
+They use a convolution operator to extract feature maps $F(i,j)$ from an input $I(i,j)$ as:
+\begin{equation}
+  F(i,j)=\sum^M_m\sum^N_nI(i-m,j-n)K(m,n),
+  \label{ch4:eq5}
+\end{equation}
+
+\noindent where $K$ is the kernel operator of size $M\times N$.
+Note that the input can be three dimensional, such as RGB images, and that the kernel may also have a third dimension to extract more than one feature map.
+Their main advantages are the sparse interactions, parameter sharing and equivariant representations \citep{goodfellow2016deep}.
+While in fully-connected networks every neuron in one layer receives information from all neurons in the previous one, CNNs use kernels much smaller than the inputs, connecting only those inputs that are spatially close, thus leading to sparse interactions.
+As the same kernel is applied to the entire input, the number of weights is reduced substantially with respect to fully-connected networks, which is known as parameter sharing.
+Finally, the equivariance means that, as the same kernel is applied to the entire input, if the input changes the feature maps change in the same manner.
+
+Feedforward is not the only type of neural networks. For example, recurrent neural networks are one of the most famous types, which are characterized by using a sequential processing of the input data more similar to the way of working of the human brain.
+However, as neither recurrent neural network nor other types of neural networks have been used in the development of this thesis, no further details will be provided.
+The interested reader is referred to \citet{goodfellow2016deep} for a comprehensive review of these concepts.
+
+%-------------------------------------------------------------------------------
+\section{Application of deep neural networks in fluid mechanics}\label{ch03:s2}
+%
+
+Thanks to new computational resources such as graphic processing units (GPUs), in recent years numerous, studies have flourished that apply deep neural networks in different fields of research, such as socioeconocmics \citep{jean2016combining}, medicine \citep{de2018clinically,zeleznik2021deep}, wildlife ecology \citep{norouzzadeh2018automatically}, climate \citep{ham2019deep,waldmann2019mapping}, sustainability \citep{vinuesa2020role}, or physics \citep{udrescu2020ai,kwon2020magnetic}.
+As might be expected, fluid mechanics has not been unrelated to this renewed interest, as reviewed in the works of \citet{kutz2017deep} and \citet{brunton2020machine}.
+In the rest of this section, a review will be made of the main areas of fluid mechanics where deep neural networks have been applied, as well as the most notable works.
+
+The first area is the application of neural networks for turbulence modelling, which can be grouped into Reynolds-averaged Navier-Stokes (RANS) and large-eddy simulation (LES) models.
+In the case of RANS models, the work of \citet{ling2016reynolds} is one of the most relevant.
+They used fully-connected neural networks to compute the Reynolds stress anisotropy tensor from the mean strain rate and rotation rate tensors.
+Moreover, they incorporated a custom layer based on representation theory to ensure the rotational invariance of the predicted anisotropy tensor \citep{pope1975more}.
+Evaluated on duct and wavy flows, results showed that their neural network was able to produce better predictions than linear and nonlinear eddy viscosity models, although DNS predictions were not perfectly reproduced.
+Another possible approach is the one proposed by \citet{thuerey2020deep}, whose model used convolutional networks to predict the velocity and pressure fields around an airfoil from freestream velocity.
+In this case, RANS simulations were used as variables to be predicted, so its neural network replaced the numerical simulation.
+
+LES models produce more accurate results than RANS, but their modelling process is more complex and expensive.
+They use different methods to model the smallest length scales in the flow that, unlike in DNS simulations, are not resolved.
+Deep neural networks can be used to substitute or complement these models.
+For example, \citet{maulik2017neural} and \citet{maulik2019subgrid} used a fully-connected neural network to predict the local closure term in the vorticity equation.
+They tested their model for a two-dimensional decaying turbulent flow, with successful results when modelling the dissipation of turbulent kinetic energy at length scales smaller than the LES grid.
+A different example was provided by \citet{beck2019deep}, where the residuals of the continuity, momentum and energy equations were predicted with convolutional networks for three-dimensional isotropic turbulence.
+
+More recently, \citet{park2021toward} have used a fully-connected neural network to predict the Reynolds shear stress in a turbulent channel flow of $Re_{\tau}\approx180$.
+They have analysed the benefits and drawbacks of different inputs, concluding that the best overall results are obtained using the velocity gradient rate.
+Additionally, this model has been proved to still provide accurate results when applied to a larger $Re_{\tau}$ flow, not seen during the training process.
+This work is similar to the one of \citet{gamahara2017searching}, where the prediction of Reynolds stresses was investigated by using different inputs, although \citet{park2021toward} have better results when using the model for advancing the simulation.
+
+LES modelling with neural networks can be applied to more complex flows.
+For instance, \citet{lapeyre2019training} recovered the flame surface density of a premixed turbulent flame from temperature measurements.
+Moreover, they used convolutional networks instead of fully-connected ones, thus exploiting the spatial information of the flow.
+In summary, neural networks can be used for turbulence modelling in a wide range of ways, where the choice of input and output variables is more influenced by the user than by the equations themselves.
+Despite the successful results collected in these studies, there is still a long way to go for neural networks to be able to improve these types of simulations to the point of reaching DNS precision.
+Furthermore, it must be considered that all these models require high-resolution data obtained by DNS simulations.
+Because of this, in the coming years, it will be of utmost importance to train networks able to provide accurate predictions with data not seen during training.
+
+The second major area where neural networks are employed in fluid mechanics is the resolution enhancement of flow fields, being the convolutional networks the dominant ones for this type of application.
+One of the first examples found in the literature is the work of \citet{fukami2019super}, where convolutional networks were used to enhance the resolution of two-dimensional decaying isotropic turbulence.
+A similar approach was followed by \cite{liu2020deep}, who targeted the resolution enhancement of turbulent two-dimensional decaying isotropic turbulence and channel flows.
+Moreover, they presented a version of their architecture where temporal information was taken into account.
+Specifically, the previous and following low-resolution fields were used as input together with the one corresponding to the high-resolution field to be predicted.
+They reported better results for the network including temporal information, being able to recover more small-scale details.
+This type of networks is also able to recover temporal information during the resolution enhancement, as shown by \citet{fukami2021machine}.
+Using two low-resolution fields, located at the beginning and end of a 9-snapshot well-resolved temporal sequence, they proposed a methodology to recover high-resolution sequences of flow fields.
+They evaluated their methodology at homogeneous isotropic and wall-bounded flows, obtaining accurate resolution enhancement for both cases.
+
+However, CNNs have not been the only ones used for this task, nor the most successful.
+Generative adversarial networks (GANs) were introduced by \citet{goodfellow2014generative} and have been very successful at this task.
+The main concept behind this type of networks relies on game theory, since there are actually two networks working collaboratively to produce better results.
+The first network is known as the generator, and it is in charge of producing an artificial output that mimics the reality.
+The second network, known as the discriminator, has the task of distinguishing between reality and artificial outputs.
+This type of networks has been successfully applied to resolution enhancement of pictures, as shown in the works of \citet{ledig2017photo} and \citet{wang2018esrgan}.
+This ability to retrieve small-scale details has not been overlooked in fluid mechanics.
+For instance, \citet{deng2019super} used GANs to recover high-resolution flow fields in the wake behind one or two side-by-side cylinders.
+Another example was provided by \citet{werhahn2019multi}, who employed them to recover high-resolution volumetric density of smoke simulations.
+The work by \citet{xie2018tempogan} is also interesting, since they embedded temporal information into a second discriminator's loss function with the purpose of producing predictions with higher temporal coherence.
+Special mention deserves the study carried out by \citet{kim2021unsupervised}.
+They employed an unsupervised version of GANs, known as cycle-GAN \citep{zhu2017unpaired}, to enhance the resolution of homogeneous turbulence and channel flows when paired high- and low-resolution data is not available.
+
+Generally, all these previous works train their neural networks by minimizing a loss function between the target and the predicted variables.
+These functions are usually simple, such as the mean-squared error, but they can become more complex, allowing to embed physical information into the model.
+This was the case of \citet{raissi2019physics} work, which included the Navier-Stokes equations in the loss function.
+They tested their model in the cylinder wake, being able to learn two constants affecting the convective and diffusive terms in the Navier-Stokes equations.
+This work was extended to target more complex flows, such as the blood flow in the carotid artery with an aneurysm \citep{raissi2020hidden}.
+Nonetheless, calculating the residuals of the Navier-Stokes equations requires time-resolved data, which, depending on the application, can be challenging to acquire.
+
+Another of the most notable applications of neural networks is the dimensionality reduction.
+As stated in Chapter~\ref{ch02}, POD has been one of the most successful techniques for this task since its introduction in fluid mechanics \citep{lumley1967structure}.
+The relationship between POD and neural networks is very close, since it was shown by \citet{baldi1989neural} that fully-connected neural networks with a single hidden layer and linear activation function are equivalent to POD.
+Moreover, \citet{hornik1989multilayer} proved that multi-layer neural networks are universal approximators for any continuous function.
+\citet{milano2002neural} were pioneers in the application of neural networks for low-order modelling.
+They compared the performance of POD and neural networks when reconstructing the near-wall region of a turbulent channel flow.
+Their results proved that neural networks are able to capture the nonlinearities present in turbulent flows, thus providing better dimensionality reduction capabilities than POD.
+
+The emergence of autoencoders \citep{demers1993non} brought a renewed interest in the application of neural networks for dimensionality reduction.
+An autoencoder is composed of two mapping functions, the encoder and the decoder.
+The encoder maps the input data to a latent representation whose dimensionality is much lower than the input.
+Then the decoder maps back that latent representation into the original input.
+The objective of these networks is to reduce the dimension of the data as much as possible without losing information.
+Deep autoencoders were employed by \citet{hinton2006reducing} to map high-dimensional data into a low-order representation, retaining more information than POD.
+Despite having better encoding, autoencoders were not able to provide a modal decomposition where the modes could be inspected as in POD.
+This issue was tackled by \cite{murata2020nonlinear} by proposing an autoencoder with several branches in the decoder.
+Each of the branches was assigned to a single mode, thus providing a visual representation.
+Later, the output was reconstructed as a direct combination of these modes.
+They evaluated their model on the cylinder's wake, whose first two POD modes contain 99\% of the flow energy, obtaining accurate results.
+The other difference between POD and the autoencoder proposed by \citet{murata2020nonlinear} is that the latter did not impose a hierarchical organization of the modes based on their energy content.
+A convolutional-based hierarchical autoencoder was proposed by \citet{fukami2020convolutional}, showing that their methodology was able to capture in its first mode the high-energy dominant structures represented in the first POD mode.
+Due to its undeniable potential, several examples of the use of autoencoders can be found in the literature.
+For instance, \citet{fukami2019synthetic} proposed to employ autoencoders as a synthetic inflow turbulence generator for turbulent channel flow of $Re_{\tau}=180$.
+Generating physical inflow is of utmost importance, because otherwise the fluctuations dissipate rapidly.
+Another application was shown by \citet{glaws2020deep}, who used convolutional autoencoders to compress DNS data after its generation.
+This allows to reduce the computational resources required to store the large amount of data produced by DNS.
+
+Last but not least, we must review the application of neural networks to predict the instantaneous state of a flow from certain variables that can be acquired with wall sensors, whether they are pressure transducers, IR thermography or hot-film sensors.
+For example, \citet{erichson2020shallow} applied shallow fully-connected neural networks to predict the flow fields in a cylinder wake from measurements at cylinder surface.
+In the work of \citet{kim2020prediction} CNNs were used to predict the heat transfer at the wall using the two components of the wall-shear-stress and the pressure fluctuations.
+They tested their methodology at a turbulent channel flow of $Re_{\tau}=180$ with successful results, and also validated its application for larger $Re_{\tau}$ flows, thus claiming that the relationship between the heat flux and the inputs is almost independent of the frictional Reynolds number within the tested range.
+Finally, \citet{guastoni2020prediction} presented preliminary results for the use of CNNs to predict wall-parallel velocity fields from wall-shear measurements.
+This work is intimately related to the main research line of this thesis, so more details will be given in the following section.
+
+These are the main areas in which neural networks have been applied in fluid mechanics.
+However, there are more works of great relevance that are not grouped in these areas.
+For instance, the lift coefficient and the displacement of a freely vibrating cylinder was estimated in \citet{raissi2019deep} by using a fully-connected network fed only with flow measurements from the surrounding.
+Moreover, they also showed the capability of neural networks to estimate the concentration of a passive scalar in the flow.
+Another example can be found in \citet{hack2016data}, where neural networks were used to classify streaks in a pressure-gradient boundary layer between those that were going to transition into turbulence and those that returned to a laminar state.
+Despite not using neural networks, it is essential to highlight the methodology presented by the series of works by Prof. J. Jiménez \citep{jimenez2018machine,jimenez2020computers,jimenez2020dipoles,jimenez2020monte}.
+In these works, machine learning is used to extract a physics-based theory for describing decaying two-dimensional isotropic turbulence, finding than dipoles are as important as classical individual vortex cores for this type of flows.
+Neural networks could be used with a similar approach, as demonstrated by \citet{iten2020discovering}.
+These authors used neural networks to extract physical laws in agreement with classical theories, such as the conservation of angular momentum, the damped pendulum or the model for a heliocentric solar system.
+
+As a final note, it is important to remark that most of the studies mentioned before are very recent, many of them having been published in the last 3 years.
+This shows that the application of neural networks in fluid mechanics has aroused great interest in the scientific community due to its potential.
+
+%-------------------------------------------------------------------------------
+\section{POD-based convolutional networks for flow reconstruction}\label{ch03:s3}
+%-------------------------------------------------------------------------------
+This section presents the POD-based CNNs developed in the present thesis for the prediction of turbulent flow fields from wall measurements.
+As shown below, there is an important conceptual difference between the networks used in Paper 1 and the network used in the rest of the papers.
+
+Figure~\ref{ch04:fig02}a) shows a schematic representation of the POD-based neural employed in Paper 1.
+This type of network is tailored for high-$Re_{\tau}$ data where only the coherent structures with high-energy content are of interest.
+For that purpose, the network presented in figure~\ref{ch04:fig02}a) is used to generate the predictions.
+The network is fed with two-dimensional fields of wall quantities.
+In the case of Paper 1, these quantities were streamwise and spanwise wall-shear stresses.
+The output of the network is a single $\psi_i$ coefficient.
+For Paper 1, ten different networks were trained to predict the first 10 POD coefficients.
+The instantaneous coherent structures populating the flow field are obtained by projecting these predicted coefficients into their POD spatial basis functions.
+The architecture of the network stacks together 5 blocks composed of a convolutional layer of 64 filters with size $4\times4$, followed by a rectified linear unit \citep[ReLU, see][]{nair2010rectified} activation function and a max-pooling layer that reduces the data dimension by a factor of 2.
+Finally, two fully-connected layers of output size 64 and 1 are added to the model, using a ReLU activation function for the first one.
+Using the Adam algorithm \citep{kingma2014adam}, the weights of the network are optimized by minimizing the loss function:
+\begin{equation}
+    \mathcal{L}=\frac{1}{N_r}\sum^{N_r}_{i=1}|\psi^{\dagger}_i - \psi_i|^2,
+    \label{ch04:eq8}
+\end{equation}
+
+\noindent where $N_r$ refers to the number of POD modes taken into account for the reconstruction.
+Acronym CNN-POD is used to refer to this network.
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/ch04_fig02}
+  \caption{\label{ch04:fig02}Schematic view of the FCN-POD architectures for a) fully-connected layer, and b) fully-convolutional networks. The colour coding for each layer is: 2D-convolution \sy{conv}{b}, ReLU-activation \sy{relu}{b}, fully-connected \sy{full}{b}, batch-normalization \sy{batc}{b}, and max-pooling \sy{pool}{b} layers. The kernel size and the number of filters are shown at the bottom of the convolution layers.}
+\end{figure}
+
+In the case of Papers 2 and 3, the fully-connected layers at the end of the network are removed, thus leading to a fully-convolutional network, which is commonly used in tasks where the input and output data share structural similarities \citep{long2015fully}.
+This method divides the turbulent flow fields into $N_s$ two-dimensional subdomains of $N_p\times N_p$ grid points, which are decomposed into POD modes.
+The number of subdomains is chosen based on $Re_{\tau}$ characterizing the flow, with the purpose of ensuring that around 90\% of the flow kinetic energy is contained within $\mathcal{O}(10^2)$ POD modes that can be translated to convolutional filters.
+Figure~\ref{ch04:fig02} shows the architecture in charge of reconstructing a three-dimensional tensor of size $N_x\times N_z \times N_r$ containing the truncated number of POD coefficients $N_r$ at each subdomain, where $N_x$ and $N_z$ refers to the number of subdomains in which the turbulent flow fields are decomposed in the streamwise and spanwise directions respectively.
+Note that the total number of subdomains $N_x \times N_z$ is also referred previously as $N_s$.
+This three-dimensional tensor is converted later into the flow field by projecting each POD coefficient in its corresponding basis.
+With respect to the input information, Paper 2 and 3 also use the instantaneous pressure fluctuations together with the wall-shear-stress components.
+Similar to the first version of the architecture, the network weights are optimized with Adam algorithm \citep{kingma2014adam}.
+For this network, the loss function is defined as:
+\begin{equation}
+    \mathcal{L}=\frac{1}{N_r}\sum^{N_r}_{i=1}\sum^{N_x}_{s_i=1}\sum^{N_z}_{s_j=1}|\psi^{\dagger}_{i_{s_i,s_j}} - \psi_{i_{s_i,s_j}}|^2,
+\end{equation}
+\noindent where subindeces $s_i$ and $s_j$ refer to the spatial location in the streamwise and spanwise directions of each subdomain.
+This network is referred with FCN-POD acronym.
+
+Figure~\ref{ch03:fig01} shows an example of a predicted turbulent flow field at different wall distances using the FCN-POD approach.
+As it can be observed, when moving away from the wall the network starts to lose the small-scale details, capturing only the large-scale fluctuations of the velocity fields.
+In any case, this is still a useful reconstruction, since their large-scale data is ascribed to the elongated u-streaks mentioned in Chapter~\ref{ch02}.
+Moreover, Paper 2 compared the performance of FCN-POD with the fully-convolutional-network (FCN) implementation of \citet{guastoni2020prediction}.
+This network applies several convolutional layers to the same inputs in order to obtain directly the velocity fields, i.e., without POD compression.
+It was shown that FCN-POD is able to provide better predictions further from the wall than FCN approach thanks to partial encoding of physical information in the POD spatial basis functions.
+While Paper 2 and Paper 3 have used a database without an overlap region, the work of Paper 1 has been carried out with a turbulent channel flow much closer to this condition, showing that this approach is still valid when targeting the large coherent structures present in the flow.
+This work also evaluated the effect of wall resolution, showing that in the tested range there was a slight performance decrease when reducing the input resolution.
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/ch03_fig01}
+  \caption{\label{ch03:fig01}Countour map for the streamwise velocity fluctuation fields scaled with their corresponding standard deviation. Top panels denote DNS, while bottom ones refer to FCN-POD predictions. Left columns refers to $y^+=15$, while rigth columns stand for $y^+=50$.}
+\end{figure}
+%-------------------------------------------------------------------------------
+\section{Super-resolution GANs for wall and flow measurements}\label{ch03:s4}
+%-------------------------------------------------------------------------------
+While the reconstruction of turbulent flow fields from low-resolution wall measurements can be achieved by the neural network presented in $\S$~\ref{ch03:s3}, Paper 1 showed a performance decrease when reducing the wall resolution.
+This section presents a GAN-based methodology, introduced in Paper 3, to deal with low-resolution wall measurements, both to increase the resolution of these measurements and to reconstruct turbulent flow fields.
+Similarly to POD-based networks, this architecture is fed with fluctuating streamwise and spanwise wall-shear-stress and pressure fields.
+However, the output is not a POD temporal projection, but the actual fields in their physical dimensions, for both wall and flow reconstructions.
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/ch04_fig03}
+  \caption{\label{ch04:fig03}Schematic view of the SRGAN architectures for a) generator $G$, and b) discriminator $D$ networks. The colour coding for each layer is: 2D-convolution \sy{conv}{b}, parametric-ReLU-activation \sy{prel}{b}, batch-normalization \sy{batc}{b}, sub-pix-convolution \sy{subp}{b}, Leaky-ReLU-activation \sy{leak}{b}, and fully-connected \sy{full}{b} layers. The kernel size and the number of filters are shown at the bottom of the convolution layers.}
+\end{figure}
+
+The choice of GANs is based on their proven effectiveness for enhancing low-resolution images.
+This type of GANs, known as super-resolution GANs (SRGANs), consists of two networks: a generator ($G$) and a discriminator ($D$).
+Applying this methodology to wall measurements, $G$ is in charge of producing an artificial high-resolution wall or flow field $\tilde{H}_R$ from a conditioned input, i.e., the low-resolution wall field $L_R$, whereas the purpose of $D$ is to distinguish between the target high-resolution fields $H_R$ and their artificial counterparts.
+As it has been seen in $\S$~\ref{ch03:s2}, SRGANs have been already used in different fluid-mechanics-related problems.
+The SRGAN architecture presented in figure~\ref{ch04:fig03} is based on the \citet{ledig2017photo} work.
+Figure~\ref{ch04:fig03}a) presents the architecture of $G$, which is characterized by two main features: the use of 16 residual networks \citep{he2016deep} in the core and the use of sub-pixel convolutional layers \citep{shi2016real} to increase the resolution at the end of the network.
+Note that the number of sub-pixel convolutional layers required to match high-resolution fields is equal to $\log_2(f_d)$, being $f_d$ the downsampling ratio between the high- and low-resolution wall fields.
+The residual blocks are composed of two convolutional layers of 64 filters of size $3\times3$, each of them followed by a batch-normalization layer \citep{ioffe2015batch} and separated by a parametric ReLU \citep{he2015delving} activation function.
+
+For the $D$ architecture shown in figure~\ref{ch04:fig03}b), the guidelines of \citet{radford2015unsupervised} have been followed.
+Convolutional layers are used together with batch-normalization layers and Leaky ReLU \citep{maas2013rectifier} activation functions to extract features from the wall fields.
+The number of filters in the convolutional layer is doubled every two layers, while the image size is reduced by a factor of two by striding the kernel.
+Finally, two fully-connected layers with output size of 1024 and 1 are used, applying a sigmoid activation function to the architecture output in order to quantify the probability of the input high-resolution wall field of being real (0) or fake (1).
+
+The discriminator loss function $\mathcal{L}_D$ is computed based on the binary cross-entropy for both real and fake images as:
+\begin{equation}
+    \mathcal{L}_D=-\mathbb{E}[\log D(H_R)] - \mathbb{E}[\log(1-D(G(L_R)))].
+\end{equation}
+
+In the case of $G$, its loss function $\mathcal{L}_G$ has been computed following the perceptual loss defined by \citet{ledig2017photo}, where the pixel-based mean squared error is combined with an adversarial contribution coming from $\mathcal{L}_D$.
+Mathematically, the error is formulated as:
+\begin{equation}
+    \mathcal{L}_G=\frac{1}{N_xN_z}\sum^{N_x}_{i=1}\sum^{N_z}_{j=1}|G(L_R)_{i,j} - H_R{_{i,j}}|^2 - \lambda \mathcal{L}_D,
+\end{equation}
+
+\noindent where $\lambda$ is a scalar factor weighting the contribution of the adversarial loss.
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/ch03_fig02}
+  \caption{\label{ch03:fig02}Comparison of the streamwise wall-shear-stress fluctuating fields at $Re_{\tau}=180$, scaled with their corresponding standard deviation. Reference DNS is reported at bottom panel, while top- and middle-row panels refer to low-resolution inputs and SRGAN predictions respectively. Each column contains a different case in terms of ratio $f_d$ between low- and high-resolution data, covering $f_d$ = 4 (left), $f_d$ = 8 (center), and $f_d$ = 16 (right).}
+\end{figure}
+Figure~\ref{ch03:fig02} shows the resolution enhancement of an instantaneous streamwise wall-shear-stress fields of a turbulent channel flow.
+While figure~\ref{ch03:fig01} has shown that moving away from the wall reduce the efficiency of predicting turbulent flow fields, these results show that reducing the amount of information provided to the network as input also affects negatively to the resolution enhancement.
+Nonetheless, the results show the ability of SRGAN to recover the largest traces of coherent structures on the wall, even in cases where the amount of information is significantly reduced.
+
+Figure~\ref{ch03:fig04} shows the reconstruction of instantaneous streamwise velocity fields of a turbulent channel flow from wall measurements with different resolution.
+Similar to FCN-POD results of Paper 2, when moving away from the wall the quality of flow predictions is decreased.
+However, SRGAN network is able to recover more small-scale details than FCN-POD and FCN for the same wall distance.
+Regarding the effect of wall resolution in the flow reconstruction, Paper 3 tackled more challenging cases than Paper 1, showing that for extreme cases there is a significant accuracy decrease.
+Nonetheless, Paper 3 showed that even in the most challenging cases of wall distance, wall resolution, or a combination of both, SRGAN is able to capture the large-scale structures present in the flow.
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/ch03_fig04}
+  \caption{\label{ch03:fig04}Countour map for the streamwise velocity fluctuation fields scaled with their corresponding standard deviation. Top panels denote DNS, while middle and bottom ones refer to SRGAN predictions with $f_d$ equal to 1 and 8 respectively. Left columns refer to $y^+=15$, while rigth columns stand for $y^+=50$.}
+\end{figure}

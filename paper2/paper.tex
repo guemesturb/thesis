@@ -1,0 +1,101 @@
+%------------------------------------------------------------------------------
+% Define title, author(s), affiliation and publishing status
+%
+\papertitle[Wall-bounded turbulence from wall quantities] % Short title used in healines (optional)
+{%
+Convolutional-network models to predict wall-bounded turbulence from wall quantities% THE COMMENT SYMBOL AT THE END OF THIS LINE IS NEEDED
+}%
+%
+\papertoctitle{Wall-bounded turbulence from wall quantities} % Title for toc
+%
+\paperauthor[L. Guastoni \etal] % Short authors used in headlines and List Of Papers
+{%
+  Luca Guastoni$^{1,2}$, Alejandro Güemes$^3$, Andrea Ianiro$^3$, Stefano Discetti$^3$, Phillip Schlatter$^{1,2}$, Hossein Azizpour$^{4,2}$ and Ricardo Vinuesa$^{1,2}$%
+}%
+%
+\listpaperauthor{Guastoni, L., Güemes, A., Ianiro, A., Discetti, S., Schlatter, P., Azizpour, H. \& Vinuesa, R.}% (optional) Short authors used in List Of Papers
+%
+\paperaffiliation
+{%
+  $^1$ Linn\'e FLOW Centre, KTH Mechanics, S-100 44 Stockholm, Sweden\\%
+  $^2$ Swedish e-Science Research Centre (SeRC), Stockholm, Sweden\\%
+  $^3$ Aerospace Research Group, Universidad Carlos III de Madrid, Leganés, Spain\\%
+  $^4$ Division of Robotics, Perception and Learning, KTH Royal Institute of Technology, Stockholm, Sweeden\\
+}%
+%
+\paperjournal[J. Fluid Mech., \textbf{Under review}] % Short publish info used in List Of Papers
+{%
+	Journal of Fluid Mechanics, \textbf{Under review}%
+}%
+%
+\papervolume{}%
+%
+%\papernumber{1}
+%
+\paperpages{}%
+%
+\paperyear{2021}%
+%
+\papersummary%
+{% Insert summary of the paper here (used in introduction)
+Two models based on convolutional neural networks are trained to predict the two-dimensional instantaneous velocity-fluctuation fields at different wall-normal locations in a turbulent open-channel flow, using the wall-shear-stress components and the wall pressure as inputs.
+The first model is a fully-convolutional neural network (FCN) which directly predicts the fluctuations, while the second one reconstructs the flow fields using a linear combination of orthonormal basis functions, obtained through proper orthogonal decomposition (POD), hence named FCN-POD.
+Both models are trained using data from direct numerical simulations (DNS) at friction Reynolds numbers $Re_{\tau} = 180$ and 550.
+Being able to predict the nonlinear interactions in the flow, both models show better predictions than the extended proper orthogonal decomposition (EPOD), which establishes a linear relation between input and output fields.
+The performance of the models is compared based on predictions of the instantaneous fluctuation fields, turbulence statistics and power-spectral densities.
+FCN exhibits the best predictions closer to the wall, whereas FCN-POD provides better predictions at larger wall-normal distances.
+We also assessed the feasibility of transfer learning for the FCN model, using the model parameters learned from $Re_{\tau}=180$ dataset to initialize those of the model that is trained on the $Re_{\tau}=550$ dataset.
+After training the initialized model at the new $Re_{\tau}$, our results indicate the possibility to match the reference-model performance up to $y^{+}=50$, with $50\%$ and $25\%$ of the original training data.
+We expect that these non-intrusive sensing models will play an important role in applications related to closed-loop control of wall-bounded turbulence.
+}
+%
+\graphicspath{{paper2/}}%
+%
+%
+%===============================================================================
+%                            BEGIN PAPER
+%===============================================================================
+%
+\begin{paper}
+
+\makepapertitle
+
+%------------------------------------------------------------------------------
+% Abstract
+%------------------------------------------------------------------------------
+%
+\begin{paperabstract}
+	Two models based on convolutional neural networks are trained to predict the two-dimensional velocity-fluctuation fields at different wall-normal locations in a turbulent-open channel flow, using the wall-shear-stress components and the wall pressure as inputs.
+	The first model is a fully-convolutional neural network (FCN) which directly predicts the fluctuations, while the second one reconstructs the flow fields using a linear combination of orthonormal basis functions, obtained through proper orthogonal decomposition(POD), hence named FCN-POD.
+	Both models are trained using data from two direct numerical simulations (DNS) at friction Reynolds numbers $Re_{\tau} = 180$ and 550.
+	Thanks to their ability to predict the nonlinear interactions in the flow, both models show a better prediction  performance  than  the  extended  proper  orthogonal  decomposition  (EPOD), which establishes a linear relation between input and output fields.
+	The performance of the various models is compared based on predictions of the instantaneous fluctuation fields, turbulence statistics and power-spectral densities.
+	The FCN exhibits the best predictions closer to the wall, whereas the FCN-POD model provides better predictions at larger wall-normal distances.
+	We also assessed the feasibility of performing transfer learning for the FCN model, using the weights from $Re_{\tau} = 180$ to initialize those of the $Re_{\tau} = 550$ case. Our results indicate that it is possible to obtain a performance similar to that of the reference model up to $y^+= 50$, with 50\% and 25\% of the original training data.
+	These non-intrusive sensing models will play an important role in applications related to closed-loop control of wall-bounded turbulence
+        \keywords{turbulent flows, turbulence simulation}
+\end{paperabstract}
+
+
+%------------------------------------------------------------------------------
+% Article
+%------------------------------------------------------------------------------
+%
+\input{paper2/article.tex}
+
+
+%------------------------------------------------------------------------------
+% Bibliography
+%------------------------------------------------------------------------------
+%
+%\clearpage
+\bibliographystyle{jfm}
+\bibliography{thesis}
+%
+\IfFileExists{paper2/paper.bbl}{\input{paper2/paper.bbl}}{}
+
+
+%===============================================================================
+%                            END PAPER
+%===============================================================================
+\end{paper}

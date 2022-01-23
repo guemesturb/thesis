@@ -1,0 +1,87 @@
+%===============================================================================
+\chapter{Main contributions and conclusions}\label{ch04}
+%===============================================================================
+%
+
+The present thesis has dealt with the estimation of coherent structures populating wall-bounded turbulent flows from wall information.
+Starting from existing linear methods in the literature, such as LSE or EPOD, it has been proposed to analyse the suitability of nonlinear methods based on neural networks.
+This choice has been based on the fact that turbulent flows are a nonlinear phenomenon both in spatial and temporal dimensions.
+As it has been shown in Chapter~\ref{ch02} of this thesis, among the different techniques that exist to study coherent structures, POD stands out, since it allows a dimensional reduction of the data, while providing a spatial representation of coherent structures, sorting them according to their energy content.
+For this reason, it has been combined with neural networks to produce an estimation of the instantaneous flow field.
+This method has been compared with EPOD, showing that the capture of nonlinearities by the proposed neural network allows the reconstruction of a greater number of scales present in the flow.
+
+Furthermore, the effect of data quality on these neural networks has been investigated.
+Specifically, it has been analysed how the resolution reduction influences the predictions.
+Reducing the resolution of the wall data eliminates the smaller scale ranges in the wall, which tends to reduce the ability of the proposed neural network to estimate those scale ranges in the velocity field.
+To compensate for this reduction in efficiency when predicting velocity fields, a second neural network based on GANs has been proposed to improve the resolution of the wall data.
+Furthermore, this method, which does not use POD, has been extended to reconstruct directly instantaneous velocity fields from wall measurements with coarse resolution.
+This method is interesting when combined with transfer learning, as it would allow networks trained with synthetic data to be transferred to real-life applications where acquiring high-resolution measurements can be difficult.
+
+Figure~\ref{ch05:fig01} summarizes the main achievements of this thesis.
+Starting from coarse data acquired from the wall of a body immersed in a turbulent flow, the proposed neural networks allow to reconstruct instantaneous velocity fields at different distances from the wall.
+While Papers 2 and 3 have focused on reconstructing as many scales as possible, Paper 1 had the objective of reconstructing the coherent structures present in the flow.
+Their results demonstrate that nonlinear flow reconstruction methods based on neural networks can be used to estimate the presence of coherent structures in the logarithmic layer.
+This is of utmost importance for any application that intends to carry out an active control of the flow from wall measurements, since \citet{lozano2014time}, among others, have shown that wall-attached coherent structures present in this area are responsible for most of the momentum transfer.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/ch05_fig01}
+  \caption{\label{ch05:fig01}Countour map for the SRGAN wall-information input with $f_d=8$ (left panel), SRGAN-prediction (center panel) and DNS-reference (right panel) streamwise velocity fluctuation fields at $y^+=30$. All quantities are scaled with their corresponding standard deviation.}
+\end{figure}
+
+%-------------------------------------------------------------------------------
+\section{Future work}
+%-------------------------------------------------------------------------------
+The promising results of this thesis offer several interesting pathways.
+Some of the possible future lines of research are listed here:
+
+\begin{itemize}
+\item While flow reconstructions presented here refer to wall-parallel velocity fields, turbulence and coherent structures are mainly three-dimensional phenomena.
+Therefore, it is necessary to extend the network to allow predicting volumes.
+\item The data used in this thesis have been generated from numerical simulations.
+Therefore, it is necessary to carry out an experimental campaign to demonstrate that neural networks trained with these data can be used to provide predictions in experimental environments.
+In parallel to this thesis, work has been done on the design and assembly of an experimental setup that will allow evaluating these techniques in an experimental turbulent-boundary-layer flow.
+\item Although an experimental demonstration is required, it may not always be possible to train a neural network with experimental data.
+This thesis has already analysed the effect of reducing the amount of information available, but it is necessary to evaluate how the noise present in experimental measurements can affect predictions.
+\end{itemize}
+
+Finally, the significant pace of development that deep learning has experienced in recent years in terms of hardware and algorithms does not seem to be slowing down.
+Therefore, it is important to transfer the knowledge that can be developed in other fields of research to the study of turbulence.
+
+%-------------------------------------------------------------------------------
+\section{Paper highlights}
+%-------------------------------------------------------------------------------
+This section highlights the contributions of each of the papers included in the present thesis.\\
+
+\noindent\textbf{Paper 1}
+
+\textit{Sensing the turbulent large-scale motions with their wall signature}
+
+\begin{itemize}
+  \item A novel convolutional neural network is presented with the ability to predict wall-parallel velocity fields from wall measurements.
+  The network exploits the compression capabilities of proper orthogonal decomposition.
+  \item The method is tested on a DNS database of a turbulent channel flow with friction-based Reynold number $Re_{\tau}=1000$.
+  \item Predicting the large coherent structures present in flow fields of size $h\times h$, the new architecture shows superior results when compared to those obtained by a commonly used linear method such as the extended proper orthogonal decomposition.
+\end{itemize}
+
+\noindent\textbf{Paper 2}
+
+\textit{Convolutional-network models to predict wall-bounded turbulence from wall quantities}
+
+\begin{itemize}
+  \item Extension of the POD-based network to predict larger domains with more energy content.
+  \item Prediction of wall-parallel velocity fields from wall measurements in turbulent open-channel flows in the range of friction-based Reynolds number $Re_{\tau}=[180-550]$.
+  \item As the distance between the flow and wall increases, it is found that the FCN-POD architecture is only able to recover the large coherent structures which have an imprint at the wall, although not limited to the linearly-correlated part of the flow.\\
+\end{itemize}
+
+\noindent\textbf{Paper 3}
+
+\textit{From coarse wall measurements to turbulent velocity fields with deep learning}
+
+\begin{itemize}
+  \item Application of GAN-based networks for resolution enhancement of coarse wall measurements and reconstruction of wall-parallel velocity fields in turbulent open-channel flows with friction-based Reynolds number $Re_{\tau}=180$.
+  The effect of using coarse wall measurements is evaluated using three downsampling factors $f_d=[4,8,16]$ from the original DNS resolution.
+  \item Results show that flow reconstruction with GANs provides better results than previous architectures.
+  \item The downsampling ratio between the coarse and fine wall measurements is modified to take into account the viscous length scale, which may vary from one work to another.
+  \item Although increasing the downsampling ratio or the distance between the wall and flow fields implies a decrease of accuracy, it is shown that GAN-based networks are able to capture the large-scale coherent structures present in the flow.\\
+\end{itemize}

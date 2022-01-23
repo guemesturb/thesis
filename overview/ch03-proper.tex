@@ -1,0 +1,170 @@
+%===============================================================================
+\chapter{Proper orthogonal decomposition}\label{ch03}
+%===============================================================================
+
+The present chapter intoduces the concept of proper orthogonal decomposition (POD), a reduce-order modelling tool use to provide a statistical description of coherent structures.
+Section~\ref{ch03:s1} provides a historical view of the use of this tool in the area of fluid mechanics, and defines its mathematical foundation.
+$\S$~\ref{ch03:s2} present the discrete formulation that will be used later in Chapter~\ref{ch04} in combination of neural network to reconstruct turbulent flow fields.
+Finally, $\S$~\ref{ch03:s3} present the extended POD, a linear-relation tool used to reconstruct turbulent flow fields.
+
+%-------------------------------------------------------------------------------
+\section{Historical perspective and mathematical framework}\label{ch03:s1}
+%-------------------------------------------------------------------------------
+Principal component analysis in a statistical tool develop in the works of \citet{pearson1901liii} and \citet{hotelling1933analysis} that decomposes any signal as the linear combination of a set of orthonormal basis, allowing to capture hidden pattern in large datasets.
+Introduced in the area of fluid mechanics by \citet{lumley1967structure} under the name of POD, it allows to decompose a fluctuating velocity field $\boldsymbol{u}(\boldsymbol{x}, t)$ as a linear combination of orthonormal basis, composed of spatially orthonormal functions $\boldsymbol{\phi}_i(\boldsymbol{x})$ times a temporal orthonormal basis:
+\begin{equation}
+  \boldsymbol{u}(\boldsymbol{x}, t) \approx \sum_{i=1}^{N_m} \psi_i(t) \sigma_i \boldsymbol{\phi}_i(\boldsymbol{x}),
+  \label{ch03:eq01}
+\end{equation}
+
+\noindent with $N_m$ being the number of POD modes, $\sigma_i$ weighting the contribution of each mode to each instantaneous field and $\psi_i(t)$ referring to the time coefficients.
+Note that when $N_m$ tends to infinity, equation~\ref{ch03:eq01} becomes a equality.
+
+In the original work of \citet{lumley1967structure}, POD aims to maximize the projection of the velocity fluctuations $\boldsymbol{u}(\boldsymbol{x}, t)$ on their spatial basis $\boldsymbol{\phi}_i(\boldsymbol{x})$ that belong to a general Hilbert space $\mathcal{H}$:
+\begin{equation}
+  \max_{\boldsymbol{\phi}_i(\boldsymbol{x})\epsilon\mathcal{H}}\biggl\langle\int_{\Omega} \bigl(\boldsymbol{u}(\boldsymbol{x}, t), \boldsymbol{\phi}_i(\boldsymbol{x})\bigl)d\boldsymbol{x}\biggl\rangle,
+  \label{ch03:eq02}
+\end{equation}
+
+\noindent where $\bigl(\cdot,\cdot\bigl)$ indicates a scalar product, $\Omega$ refers to the entire observation domain and $\bigl\langle\cdot,\cdot\bigl\rangle$ indicates am ensemble average.
+The choice of basis functions $\boldsymbol{\phi}_i(\boldsymbol{x})$ affects the solution of equation. In the case of POD, this set of basis function is chosen to be orthonormal i.e., fulfilling the orthogonality constraint
+\begin{equation}
+  \biggl\langle\int_{\Omega} \bigl(\boldsymbol{\phi}_i(\boldsymbol{x}), \boldsymbol{\phi}_j(\boldsymbol{x})\bigl)d\boldsymbol{x}\biggl\rangle=\delta_{ij},
+  \label{ch03:eq03}
+\end{equation}
+
+\noindent where $\delta_{ij}$ is the Kronecker delta.
+\citet{holmes2012turbulence} shows that the problem defined by equations~\ref{ch03:eq02}-\ref{ch03:eq03} is equivalent to find the solution for Fredholm equation:
+\begin{equation}
+  \biggl\langle\int_{\Omega} \bigl(\mathcal{R}(\boldsymbol{x},\boldsymbol{x}^{\prime}), \boldsymbol{\phi}_i(\boldsymbol{x^{\prime}})\bigl)d\boldsymbol{x^{\prime}}\biggl\rangle=\sigma_i^2\boldsymbol{\phi}_i(\boldsymbol{x}),
+  \label{ch03:eq04}
+\end{equation}
+
+\noindent where $\mathcal{R}(\boldsymbol{x},\boldsymbol{x}^{\prime})$ is the two-point spatial correlation.
+Since any combination of the first $r$ POD modes composes an orthonormal basis that minimizes the Frobenius norm of the flow field, POD provides flow field modes ordered by their energy content.
+
+An alternative approach to compute the POD modes of a set of instantaneoeus turbulent velocity fields is the \textit{snapshot method} suggested by \citet{sirovich1987turbulence}.
+This method proposes to project $\boldsymbol{u}(\boldsymbol{x}, t)$ on their temporal basis $\psi_i(t)$, such that:
+\begin{equation}
+  \max_{\psi_i(t)\epsilon\mathcal{H}}\biggl\langle\int_{\mathcal{T}} \bigl(\boldsymbol{u}(\boldsymbol{x}, t), \psi_i(t)\bigl)dt\biggl\rangle,
+  \label{ch03:eq05}
+\end{equation}
+
+\noindent where $\mathcal{T}$ refers to the entire temporal domain.
+Equation~\ref{ch03:eq04}, together with the orthogonality condition for $\psi_i(t)$, defined as:
+\begin{equation}
+  \biggl\langle\int_{\mathcal{T}} \bigl(\psi_i(t), \psi_i(t)\bigl)dt\biggl\rangle=\delta_{ij},
+  \label{ch03:eq06}
+\end{equation}
+
+\noindent compose a problem defined by the Fredholm equation such that:
+\begin{equation}
+  \biggl\langle\int_{\Omega} \bigl(\mathcal{R}_t(t,t^{\prime}), \psi_i(t^{\prime})\bigl)dt^{\prime}\biggl\rangle=\sigma_i^2\psi_i(t),
+  \label{ch03:eq07}
+\end{equation}
+
+\noindent where $\mathcal{R}_t(t,t^{\prime})$ is the two-point temporal correlation.
+This approach is significantly useful when the available temporal information is significantly smaller than the spation one.
+
+Apart from fluid mechanics, POD has been extensively applied in many research areas, such as data compression \citep{andrews1967adaptive}, signal analysis \citep{algazi1969optimality}, oceanography \citep{preisendorfer1988principal} or astrophysics \citep{soummer2012detection}, to name a few.
+With respect to fluid mechanics, Chapter~\ref{ch02} has reviewed the application of POD as a tool to study coherent structures in wall-bounded flows, but there are other problems where it has been successfully applied.
+For example, \citet{mendez2017pod} proposed a method to remove the background from PIV images, which is especially useful for eliminating static reflections that occur when the PIV laser hits an object.
+Nonetheless, the classical application of the method is the data decomposition of flow fields, for which several examples can be found.
+One of the first was the data decomposition of a turbulent channel flow carried out by \citet{moin1989characteristic}.
+Since then, POD has been applied in several flow topologies, such as the cylinder wake \citep{deane1991low,feng2011proper,raiola2016wake}, turbulent jets \citep{glauser1991dynamics,berry2017application,mendez2019multi}, flapping wings \citep{liang2015symmetry,troshin2018modeling,raiola2021data}, wall-mounted obstacles \citep{mallor2018wall,mallor2019modal,guemes2019flow}, or mixing layers \citep{delville1999examination,citriniti2000reconstruction,kaiser2014cluster} among many others \citep{rowley2017model}.
+It is worth to note that many of these works have also used the POD to study the coherent structures present in turbulent shear flows.
+
+%-------------------------------------------------------------------------------
+\section{Discrete formulation of proper orthogonal decomposition}\label{ch03:s2}
+%-------------------------------------------------------------------------------
+
+Commonly, the data acquired from experiments or numerical simulations come on discrte form i.e., $N_t$ samples are acquired on a spatil grid composed of $N_p$ grid points, therefore requiring a discrete formulation.
+When using the \textit{snapshot method}, the three fluctuating velocity components of each instantaneous field are rearranged into a snapshot matrix $U$ such as:
+\begin{equation}
+    \mathbf{U}=\begin{bmatrix}
+    u_{x_1}^{t_1} & \dots  & u_{x_{N_p}}^{t_1} & v_{x_1}^{t_1} & \dots  & v_{x_{N_p}}^{t_1} & w_{x_1}^{t_1} & \dots  & w_{x_{N_p}}^{t_1}\\
+    \vdots         & \ddots & \vdots         & \vdots         & \ddots & \vdots  & \vdots         & \ddots & \vdots \\
+    u_{x_1}^{t_{N_t}} & \dots  & u_{x_{N_p}}^{t_{N_t}} & v_{x_1}^{t_{N_t}} & \dots  & v_{x_{N_p}}^{t_{N_t}}  & w_{x_1}^{t_{N_t}} & \dots  & w_{x_{N_p}}^{t_{N_t}}
+    \end{bmatrix}.
+    \label{ch03:eq08}
+\end{equation}
+
+Then, POD spatial modes can be evaluated solving the eigenvalue problem of the spatial correlation matrix $S$ as follows:
+\begin{equation}
+    \mathbf{S}=\mathbf{U}^T\mathbf{U}=\boldsymbol{\Phi}^T\boldsymbol{\Lambda}\boldsymbol{\Phi},
+    \label{ch03:eq09}
+\end{equation}
+
+\noindent where $\boldsymbol{\Phi}$ is a matrix whose rows contain the spatial POD modes, while $\boldsymbol{\Lambda}$ is a diagonal matrix with elements $\lambda_i=\sigma_i^2$, which represent the variance content of each mode.
+Note that the singular value decomposition of the spatial correlation matrix $S$ shown in equation~\ref{ch03:eq09} is the discrete version of the Fredholm equation presented in equation~\ref{ch03:eq04}.
+Considering that equation~\ref{ch03:eq01} can be expressed in matrix form as:
+\begin{equation}
+  \boldsymbol{U} =  \boldsymbol{\Psi}\boldsymbol{\Sigma}\boldsymbol{\Phi},
+  \label{ch03:eq10}
+\end{equation}
+
+\noindent where $\Sigma$ is a diagonal matrix containing the square root of the mode variances $\sigma_i$, the POD coefficients $\psi_i(t)$ are obtained by projecting the flow fields on the spatial POD modes computed with equation~\ref{ch03:eq09} as follows:
+\begin{equation}
+  \mathbf{\Psi} =  \mathbf{S} \mathbf{\Phi}^T\mathbf{\Sigma^{-1}}.
+  \label{ch03:eq11}
+\end{equation}
+
+In the same manner as equation~\ref{ch03:eq07}, the discrete approach can be formulated to solve the temporal correlation matrix:
+\begin{equation}
+    \mathbf{T}=\mathbf{U}\mathbf{U}^T=\boldsymbol{\Psi}\boldsymbol{\Lambda}\boldsymbol{\Psi}^T,
+    \label{ch03:eq12}
+\end{equation}
+
+\noindent where the ratio $N_t/N_p$ conditions the choice between this approach $(N_t/N_p>1)$ or \textit{snapshot method} $(N_t/N_p<1)$.
+
+%-------------------------------------------------------------------------------
+\section{Extended proper orthogonal decomposition}\label{ch03:s3}
+%-------------------------------------------------------------------------------
+
+Extended proper orthogonal decomposition (EPOD), originally suggested by \citet{maurel2001extended}, is a statistical tool that allows to draw the correlation between the flow features extracted from two different dataset. For instance, given a signal $\boldsymbol{w}(\boldsymbol{x}, t)$ containing the pressure an shear stress fluctuations at the wall, it is possible to calculate its extended POD modes as its projection onto the temporal basis defined for $\boldsymbol{u}(\boldsymbol{x}, t)$ as:
+\begin{equation}
+  \sigma_i^e\boldsymbol{\phi}_i^e(\boldsymbol{x})=\biggl\langle\int_{\Omega} \bigl(\psi_i(t),\boldsymbol{w}(\boldsymbol{x}, t)\bigl)d\boldsymbol{x}\biggl\rangle,
+  \label{ch03:eq13}
+\end{equation}
+
+\noindent where superindex $e$ stands for \textit{extended}.
+The strength of equation~\ref{ch03:eq13} is that allows to extract the correlation between synchronized measurements through the extended POD modes, being possible to quantify the relationship between the coherent structures populating each one of them.
+
+Rearranging the wall information contained in $\boldsymbol{w}(\boldsymbol{x}, t)$ in a matrix form:
+\begin{equation}
+  \mathbf{W}=\begin{bmatrix}
+      \tau_{w_{x_{x_1}}}^{t_1} & \dots  & \tau_{w_{x_{N_p}}}^{t_1} & \tau_{w_{z_{x_1}}}^{t_1} & \dots  & \tau_{w_{z_{N_p}}}^{t_1} & p_{w_{x_1}}^{t_1} & \dots  & p_{w_{N_p}}^{t_1}\\
+      \vdots         & \ddots & \vdots         & \vdots         & \ddots & \vdots  & \vdots         & \ddots & \vdots \\
+      \tau_{w_{x_{x_1}}}^{t_{N_t}} & \dots  & \tau_{w_{x_{N_p}}}^{t_{N_t}} & \tau_{w_{z_{x_1}}}^{t_{N_t}} & \dots  & \tau_{w_{z_{N_p}}}^{t_{N_t}}  & p_{w_{x_1}}^{t_{N_t}} & \dots  & p_{w_{N_p}}^{t_{N_t}}
+      \end{bmatrix},
+  \label{ch03:eq14}
+\end{equation}
+
+\noindent and considering that $\mathbf{W}$ can be decomposed analysis:
+\begin{equation}
+  \boldsymbol{W} =  \boldsymbol{\Psi_w}\boldsymbol{\Sigma_w}\boldsymbol{\Phi_w},
+  \label{ch03:eq15}
+\end{equation}
+
+\noindent it is possible to express equation~\ref{ch03:eq13} in discrete form analysis as:
+\begin{equation}
+    \boldsymbol{\Sigma}^e\boldsymbol{\Phi}^e=\boldsymbol{\Psi}\boldsymbol{W}=\boldsymbol{\Psi}\boldsymbol{\Psi_w}\boldsymbol{\Sigma_w}\boldsymbol{\Phi_w}=\boldsymbol{\Xi}\boldsymbol{\Sigma_w}\boldsymbol{\Phi_w},
+    \label{ch03:eq16}
+\end{equation}
+
+\noindent where matrix $\boldsymbol{\Xi}$ contains the temporal correlation between both quantities.
+
+Assuming that the POD for both quantities has reached statistical convergence, it is possible to estimate any of the quantities through a linear projection on the extended POD modes analysis:
+\begin{equation}
+  \boldsymbol{U}^{\dagger} =  \boldsymbol{\Xi}\boldsymbol{\Psi_w}\boldsymbol{\Sigma}\boldsymbol{\Phi},
+  \label{ch03:eq15}
+\end{equation}
+
+\noindent where superscript $\dagger$ refers to reconstructed quantities.
+\citet{discetti2018estimation} showed that the energy-optimality of POD modes mentioned in $\S$~\ref{ch03:s1} can then be enforced by employing statistical filters on the temporal correlation matrix.
+Apart from the examples related to wall turbulence presented in Chapter~\ref{ch02}, EPOD has been showed to provide accurate predictions in other types of flows, such as the far-field predictions of turbulent jets carried out by \citet{tinney2008low}.
+
+One of the most important properties of EPOD is its connection to the linear stochastic estimation developed by \citep{adrian1979conditional}.
+\citet{boree2003extended} proved mathematically that LSE and EPOD are equivalent methods.
+Following \citet{holmes2012turbulence}, this relation can be resumed in two main properties.
+First, suitable averages of LSE events produce the POD modes and second, all LSE events are linear combinations of POD modes.

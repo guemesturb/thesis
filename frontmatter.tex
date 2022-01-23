@@ -1,0 +1,309 @@
+%-------------------------------------------------------------------------------
+% Cover page
+%-------------------------------------------------------------------------------
+%
+\makecoverpage
+
+
+%-------------------------------------------------------------------------------
+% Dedication (comment if none)
+%-------------------------------------------------------------------------------
+%
+\dedication{
+	{\it Esta tesis está dedicada a mis padres,\\por el apoyo y cariño constantes que me han dado.}
+}
+
+
+
+% ===============================================================================
+% Acknowledgments
+% ===============================================================================
+
+\input{acknowledgements}
+
+%-------------------------------------------------------------------------------
+% Abstract (English)
+%-------------------------------------------------------------------------------
+%
+% COMMENT: the abstract should be limited to 2000 characters and the keywords
+% to 250 characters because otherwise they will not fit in the mailing sheet.
+%
+\begin{abstract}
+
+	\noindent Any device or application in which a solid body and a fluid are in relative motion has to deal with the presence of drag forces.
+	Counteract such forces in an efficient and environmentally-friendly way has become very important in recent years, in view of the sustainable-development challenges imposed by global authorities.
+	The interaction between any engineering device and a surrounding fluid occurs most of the time in a turbulent regime.
+	Despite the chaotic appearance of any turbulent flow, a close inspection reveals the presence of patterns that maintain their structure over a period of time.
+	These patterns, known as \textit{coherent structures}, are of utmost importance, since they are a \textit{low-dimensional expression} of a complex highly-dimensional dynamical system that can be used to target affordable control strategies.
+	Taking into account that control models rely on proper identification of the flow state, it is necessary to acquire this information in a way that is sufficiently robust for real applications.
+	For example, the experimental tools normally used in wind tunnels (for instance, velocity field measurement techniques like Particle Image Velocimetry) cannot be used in an airborne flight.
+	It becomes necessary to acquire this information from sensors that can be embedded in the device itself.
+	The present thesis attempts to provide a technique based on deep neural networks that allows to reconstruct turbulent flows and their energy-carrying coherent structures from sensors embedded in the wall.
+	The choice of neural networks, characterized by their ability to approximate non-linear relations, is based on the development of new algorithms that has occurred in recent years due to the availability of new computational resources.
+
+	The first part the dissertation aims to develop a model that combines the ability of prediction in nonlinear systems of deep neural networks with the compression capabilities of proper orthogonal decomposition (POD).
+	For that purpose, a direct numerical simulation (DNS) of a turbulent channel flow of $Re_{\tau}=1000$ is used.
+	Using wall-shear-stress information, the proposed architecture extracts information into feature maps through a series of convolutional neural networks, which are later converted in POD modes coefficients by using fully-connected neural networks.
+	Since the first POD modes can be ascribed to the most energetic structures in any flow, the proposed networks aim to provide an estimation of the first 10 POD modes.
+	This approach allows to reconstruct wall-parallel flow fields containing the most energetic structures in the flow.
+	This approach is compared with a baseline linear method, proving that neural networks are able to trace better the nonlinear effect of turbulent flows in the wall-normal direction.
+
+	The next step is to improve this model to reconstruct as much flow scales as possible.
+	For such purpose, a DNS of turbulent open-channel flow is used, with $Re_{\tau}=[180-550]$.
+	The aforementioned network is transformed into a fully-convolutional network, which allows to exploit better the spatial organization of the POD modes and retrieve a significant larger amount of flow energy, surpassing 90\%.
+	The results show that the prediction quality decays with increasing wall distance.
+	This is because the imprint of the flow structures at the wall is related in a linear way for all scales that have a size of the order of the distance to the wall.
+	In contrast, the smaller scales do not impose their imprint directly on the wall, and the nonlinear relationship between the two attenuates with distance.
+	For these results, the energy spectrum of the flow has also been evaluated, showing that the accuracy loss of the predictions begins with the smallest scales.
+	However, the predictions are capable of recovering the largest structures of the flow, which are the ones that transport the bulk of energy.
+	Furthermore, this network is compared with a network that does not exploit the compressibility advantages of POD.
+	The results are overall similar, although the network based on POD appear slightly more robust for increasing distance from the wall.
+
+	While the previous networks have used fully-resolved wall information coming from DNS simulation, n real applications it is often difficult to embed such a fine mesh of sensors in the wall.
+	Among the different types of architecture that comprise neural networks, generative adversarial networks (GANs) have stood out for their ability to recover the small-scale details of low-resolution images.
+	In fact, they have already been proposed as a tool to recover resolution in flow measurements.
+	In this thesis the use of GANs to retrieve high-resolution wall information is presented.
+	GANs performance is evaluated for different information loss ratios, showing that even in extreme cases GANs are capable of recovering the most energetic scales of the flow footprint at the wall.
+
+	Finally, as the use of GANs has been proven successful for both wall and flow fields, it is proposed to use them to make a direct estimation of the flow from wall quantities.
+	The results offer a significant improvement in flow reconstruction when compared to the previous results.
+	This improvement can be ascribed to the complexity of GAN architectures, which allows to optimize better the amount of information fed into the network without suffering vanishing-gradient problems.
+	The reconstruction performances are also tested with low-resolution input data.
+	Although the predictions get worse when moving away from the wall also in this case, the rate is lower than in the previous cases.
+	This allows to have reconstructions that capture the coherent structures away from the wall.
+		%
+		\keywords{wall turbulence, coherent structures, deep learning.}
+		%
+\end{abstract}
+
+
+%-------------------------------------------------------------------------------
+% Abstrakt (Swedish)
+%-------------------------------------------------------------------------------
+%
+% COMMENT: the abstract should be limited to 2000 characters and the keywords
+% to 250 characters because otherwise they will not fit in the mailing sheet.
+%
+\begin{abstrakt}
+
+	\noindent Cualquier dispositivo o aplicación en la que un cuerpo sólido y un fluido estén en movimiento relativo tiene que lidiar con la presencia de fuerzas de arrastre.
+	A la vista de los desafíos de desarrollo sostenible que han impuesto las autoridades mundiales, contrarrestar	estas fuerzas de una manera eficiente y amistosa con el medio ambiente se ha convertido en un tema de suma importancia.
+	La interacción entre un dispositivo de carácter industrial y el fluido que lo rodea ocurre la mayor parte del tiempo en el régimen turbulento.
+	A pesar de la apariencia caótica que tienen los flujos turbulentos, una inspección de cerca revela la presencia de patrones que mantienen su estructura durante algún tiempo.
+	Estos patrones, conocidos como \textit{estructuras coherentes}, son de suma importancia, ya que son una \textit{expresión de baja dimensión} de un sistema dinámico complejo de alta dimensionalidad que puede usarse para desarrollar estrategias de control asequibles.
+	Teniendo en cuenta que los modelos de control se basan en la identificación adecuada del estado del flujo, es necesario adquirir esta información de una manera que sea lo suficientemente robusta para aplicaciones reales.
+	Por ejemplo, las herramientas experimentales que se utilizan normalmente en los túneles de viento, como la velocimetría de imágenes de partículas para la medición del campo de velocidad, no se pueden utilizar durante el vuelo de un avión regular.
+	Es necesario adquirir esta información a partir de sensores que se puedan incrustar en el propio dispositivo.
+	La presente tesis intenta proporcionar una técnica basada en redes neuronales profundas que permita reconstruir flujos turbulentos y sus estructuras coherentes portadoras de energía a partir de sensores embebidos en la pared.
+	La elección de las redes neuronales, caracterizadas por su capacidad para aproximar relaciones no lineales, se basa en el desarrollo de nuevos algoritmos que han aparecido en los últimos años, gracias a los avances de los nuevos recursos computacionales.
+
+	La primera parte de esta disertación tiene como objetivo desarrollar un modelo que combine la capacidad de predicción en sistemas no lineales de redes neuronales profundas con las capacidades de compresión de la Descomposición Modal Ortogonal (Proper Orthogonal Decomposition, POD).
+	Para ello, se utiliza una simulación numérica directa (Direct Numerical Simulation, DNS) de un flujo de canal turbulento, con $Re_{\tau}=1000$.
+	Midiendo los esfuerzos de cortadura en la pared, la arquitectura propuesta extrae información en mapas de características a través de una serie de redes neuronales convolucionales, que luego se convierten en coeficientes de modos POD mediante el uso de redes neuronales completamente conectadas.
+	Dado que los primeros modos POD se pueden atribuir a las estructuras más energéticas en cualquier flujo, las redes propuestas tienen como objetivo proporcionar una estimación de los primeros 10 modos POD.
+	Este enfoque permite reconstruir campos de flujo paralelos a la pared que contienen sus estructuras más energéticas.
+	Este método propuesto se compara con un método lineal de referencia, lo que demuestra que las redes neuronales pueden rastrear mejor el efecto no lineal de los flujos turbulentos en la dirección normal de la pared.
+
+	El siguiente paso es mejorar este modelo para reconstruir tantas escalas del flujo como sea posible.
+	Para ello se utiliza un DNS de flujo turbulento en canal abierto, con $Re_{\tau}=[180-550]$.
+	La mencionada red se transforma en una red totalmente convolucional, lo que permite aprovechar mejor la organización espacial de los modos POD y recuperar una cantidad significativamente mayor de energía de flujo, superando el 90\%.
+	Los resultados muestran que la calidad de la predicción decae a medida que aumenta la distancia a la pared.
+	Esto se debe a que la huella de las estructuras del flujo en la pared está relacionada de forma lineal para todas las escalas que tienen un tamaño del orden de la distancia a la pared.
+	Por el contrario, las escalas más pequeñas no imponen su huella directamente en la pared y la relación no lineal entre las dos se atenúa con la distancia.
+	Para estos resultados, también se ha evaluado el espectro de energía del flujo, mostrando que la pérdida de precisión de las predicciones comienza con las escalas más pequeñas.
+	Sin embargo, las predicciones son capaces de recuperar las estructuras más grandes del flujo, que son las que transportan la mayor parte de la energía.
+	Además, esta red se compara con una red que no aprovecha las ventajas de compresibilidad de la POD.
+	Los resultados son en general similares, aunque la red basada en la POD parece ligeramente más robusta cuando aumenta la distancia desde la pared.
+
+	Si bien las redes anteriores han utilizado información de pared completamente resuelta proveniente de la simulación de DNS, en aplicaciones reales es difícil incrustar una malla tan fina de sensores en la pared.
+	Entre los distintos tipos de arquitectura que componen las redes neuronales, las redes de generación por confrontación (Generative Adversarial Networks, GAN) se han destacado por su capacidad para recuperar detalles a pequeña escala en imágenes de baja resolución.
+	De hecho, ya se han propuesto como herramienta para recuperar la resolución en medidas de flujo.
+	En esta tesis se presenta una alternativa basada en GANs para recuperar información de pared de alta resolución.
+	Se han evaluado las prestaciones de las GANs para diferentes ratios de pérdida de información, demostrando que incluso en casos extremos las GANs son capaces de recuperar las escalas más energéticas de la huella de flujo en la pared.
+
+	Finalmente, dado que el uso de las GANs ha demostrado ser exitoso tanto para los campos de pared como para los de flujo, se propone usarlos para hacer una estimación directa del flujo a partir de las cantidades de pared.
+	Los resultados ofrecen una mejora significativa en la reconstrucción del flujo en comparación con los resultados anteriores.
+	Esta mejora se puede atribuir a la complejidad de las arquitecturas GAN, que permite optimizar mejor la cantidad de información introducida en la red sin sufrir problemas de desvanecimiento de gradiente.
+	Las prestaciones de reconstrucción también se han probado con datos de entrada de baja resolución.
+	Aunque en este caso las predicciones también empeoran al alejarse del muro, la tasa de disminución es menor que en los casos anteriores.
+	Esto permite tener reconstrucciones que capturan las estructuras coherentes lejos de la pared.
+		%
+		\palabrasclave{turbulencia de pared, estructuras coherentes, aprendizaje profundo.}
+		%
+\end{abstrakt}
+
+
+%-------------------------------------------------------------------------------
+% Preface page
+%-------------------------------------------------------------------------------
+%
+\begin{preface}
+	This thesis deals with the reconstruction of coherent structures in wall-bounded turbulent flows by means of deep neural networks.
+	A brief introduction of the basic concepts and methods is presented in the first part.
+	The second part contains three articles.
+	The papers are adjusted to comply with the present thesis format for consistency, but their contents have not been altered as compared with their original counterparts.
+\end{preface}
+
+
+%-------------------------------------------------------------------------------
+% Division of work between authors
+%-------------------------------------------------------------------------------
+%
+\begin{divisionofwork}
+	The advisors for the project are Professor Andrea Ianiro (AI) and Professor Stefano Discetti (SD).
+
+	\paperitem
+		The data pre-processing and the application of reconstruction algorithms have been carried out by Alejandro Güemes (AG).
+		The paper has been written by AG and reviewed by SD and AI.
+
+	\paperitem
+		The simulations have been generated by Luca Guastoni (LG).
+		The analysis of linear and nonlinear predictive models has been carried out by AG and LG.
+		The paper has been written by LG and AG with input from SD, AI, Philipp Schlatter (PS), Hossein Azizpour (HA) and Ricardo Vinuesa (RV).
+
+	\paperitem
+		The application of predictive models to reconstruct flow fields from coarse wall measurements has been carried out by AG.
+		The paper has been written by AG and reviewed by SD, AI, Beril Sirmacek (BS), HA and RV.
+
+\end{divisionofwork}
+
+
+%-------------------------------------------------------------------------------
+% Additional publications (comment if none)
+%-------------------------------------------------------------------------------
+%
+\clearpage
+\begin{otherpublications}
+	The following papers, although related, are not included in this thesis.
+
+  \paperitem%
+    {Güemes, A., Sanmiguel Vila, C., Örlü, R., Vinuesa, R., Schlatter, P., Ianiro, A. \& Discetti, S.}% Authors
+    {2019}% Year
+    {Flow organization in the wake of a rib in a turbulent boundary layer with pressure gradient}% Title
+    {Exp. Therm. Fluid Sci.}% Journal
+    {108}% Volume
+    {}% Number
+    {pp. 115--124}% Pages
+
+	\paperitem%
+		{Güemes, A., Fajardo, P. \& Raiola, M.}% Authors
+		{2020}% Year
+		{Experimental assessment of RANS models for wind load estimation over solar-panel arrays}% Title
+		{Appl. Sci.}% Journal
+		{11}% Volume
+		{6}% Number
+		{2496}% Page
+
+  \paperitem%
+    {Castellanos, R., Sanmiguel Vila, C., Güemes, A. \& Discetti, S.}% Authors
+    {2020}% Year
+    {On the uncertainty of boundary-layer parameters from Ensemble PTV data}% Title
+    {Meas. Sci. Technol.}% Journal
+    {32}% Volume
+    {}% Number
+    {084006}% Page
+
+\end{otherpublications}
+
+
+%-------------------------------------------------------------------------------
+% Conferences (comment if none)
+%-------------------------------------------------------------------------------
+%
+\clearpage
+\begin{conferences}
+	Part of the work in this thesis has been presented at the following international conferences.
+	The presenting author is underlined.
+
+  \conferenceitem%
+    {\underline{Güemes, A.}, Vaquero, A., Flores, O., Discetti, S. \& Ianiro, A.}% Authors
+    {2018}% Year
+    {Identifying the wall signature of large-scale motions with Extended POD}% Title
+    {8th iTi Conference in Turbulence}% Conference
+    {Italy}% Location
+
+  \conferenceitem%
+    {\underline{Sanmiguel Vila, C.}, Güemes, A., Örlü, R., Vinuesa, R., Schlatter, P., Ianiro, A. \& Discetti, S.}% Authors
+    {2019}% Year
+    {Pressure-gradient effects on turbulent boundary layers with square ribs}% Title
+    {15th International Conference on Fluid Control, Measurements and Visualization}% Conference
+    {Italy}% Location
+
+  \conferenceitem%
+    {\underline{Güemes, A.}, Ianiro, A. \& Discetti, S.}% Authors
+    {2019}% Year
+    {Experimental assessment of large-scale motions in turbulent boundary layers}% Title
+    {13th International Symposium on Particle Image Velocimetry}% Conference
+    {Germany}% Location
+
+  \conferenceitem%
+    {\underline{Güemes, A.}, Discetti, S. \& Ianiro, A.}% Authors
+    {2020}% Year
+    {Low-order flow reconstruction with convolutional neural networks}% Title
+    {1st VKI Lecture Series on Machine Learning for Fluid Mechanics: Analysis, Modeling, Control and Closures}% Conference
+    {Belgium}% Location
+
+  \conferenceitem%
+    {\underline{Foroozan, F.}, Güemes, A., Guerrero, V., Ianiro, A. \& Discetti, S.}% Authors
+    {2020}% Year
+    {Unsupervised discovery of boundary layer transition theory}% Title
+    {1st VKI Lecture Series on Machine Learning for Fluid Mechanics: Analysis, Modeling, Control and Closures}% Conference
+    {Belgium}% Location
+
+	\conferenceitem%
+    {\underline{Guastoni, L.}, Güemes, A., Ianiro, A., Discetti, S., Schlatter, P., Azizpour, H. \& Vinuesa, R.}% Authors
+    {2020}% Year
+    {Predictions in wall-bounded turbulence through convolutional-network models using wall quantities}% Title
+    {APS Division of Fluid Dynamics}% Conference
+    {USA}% Location
+
+  \conferenceitem%
+    {Arivazhagan, G.B., Guastoni, L., Güemes, A. Ianiro, A., Discetti, S., Schlatter, P., Azizpour, H. \& \underline{Vinuesa, R.}}% Authors
+    {2021}% Year
+    {Predicting the near-wall region of turbulence through convolutional neural networks}% Title
+    {13th International ERCOFTAC Symposium on Engineering, Turbulence, Modeling and Measurements}% Conference
+    {Greece}% Location
+
+	\conferenceitem%
+    {\underline{Güemes, A.}, Tober, H., Discetti, S., Ianiro, A., Sirmacek, B., Azizpour, H. \& Vinuesa, R.}% Authors
+    {2021}% Year
+    {Reconstructing flow fields from coarse wall measurements with deep learning}% Title
+    {19th International Symposium on Flow Visualization}% Conference
+    {China}% Location
+
+	\conferenceitem%
+		{Güemes, A., Sanmiguel Vila, C. \& \underline{Discetti, S.}}% Authors
+		{2021}% Year
+		{High-resolution PIV with semi-supervised GANs}% Title
+		{19th International Symposium on Flow Visualization}% Conference
+		{China}% Location
+
+	\conferenceitem%
+		{\underline{Foroozan, F.}, Güemes, A., Castellanos, R., Raiola, M., Ianiro, A., \& Discetti, S.}% Authors
+		{2021}% Year
+		{Correlation between wall and flow fields in turbulent boundary layer: a synchronized measurement}% Title
+		{19th International Symposium on Flow Visualization}% Conference
+		{China}% Location
+
+	\conferenceitem%
+		{Güemes, A., Sanmiguel Vila, C. \& \underline{Discetti, S.}}% Authors
+		{2021}% Year
+		{GANs-based PIV resolution enhancement without the need of high-resolution input}% Title
+		{14th International Symposium on Particle Image Velocimetry}% Conference
+		{USA}% Location
+
+	\conferenceitem%
+		{\underline{Cuellar, A.}, Güemes, A., Discetti, S. \& Ianiro, A.}% Authors
+		{2021}% Year
+		{Convolutional neural networks for flow sensing in wall turbulence}% Title
+		{8th International Congress of Serbian Society of Mechanics}% Conference
+		{Serbia}% Location
+
+\end{conferences}
+
+
+%-------------------------------------------------------------------------------
+% Table of contents
+%-------------------------------------------------------------------------------
+%
+\tableofcontents

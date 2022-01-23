@@ -1,0 +1,91 @@
+%------------------------------------------------------------------------------
+% Define title, author(s), affiliation and publishing status
+%
+\papertitle[Sensing large-scale motions] % Short title used in headlines (optional)
+{%
+  Sensing the turbulent large-scale motions with their wall signature% THE COMMENT SYMBOL AT THE END OF THIS LINE IS NEEDED
+}%
+%
+\papertoctitle{Sensing the turbulent large-scale motions with their wall signature} % Title for toc
+%
+\paperauthor[A. Güemes, S. Discetti \& A. Ianiro] % Short authors used in headlines and List Of Papers
+{%
+  Alejandro Güemes$^1$, Stefano Discetti$^1$ and Andrea Ianiro$^1$%
+}%
+%
+\listpaperauthor{Güemes, A., Discetti, S. \& Ianiro, A.}% (optional) Short authors used in List Of Papers
+%
+\paperaffiliation
+{%
+  $^1$ Aerospace Research Group, Universidad Carlos III de Madrid, Avenida de la Universidad 30, Leganés 28911, Spain\\
+}%
+%
+\paperjournal[Phys. Fluids] % Short publish info used in List Of Papers
+{%
+	Physics of Fluids%
+}%
+%
+\papervolume{31}%
+%
+\papernumber{12}%
+%
+\paperpages{125112}%
+%
+\paperyear{2019}%
+%
+\papersummary%
+{% Insert summary of the paper here (used in introduction)
+	This study assesses the capability of extended proper orthogonal decomposition (EPOD) and convolutional neural networks (CNNs) to reconstruct large-scale and very-large-scale motions (LSMs and VLSMs respectively) employing wall-shear-stress measurements in wall-bounded turbulent flows.
+	Both techniques are used to reconstruct the instantaneous LSM evolution in the flow field as a combination of proper orthogonal decomposition (POD) modes, employing a limited set of instantaneous wall-shear-stress measurements.
+	Due to the dominance of nonlinear effects, only CNNs provide satisfying results.
+	Being able to account for nonlinearities in the flow, CNNs are shown to perform significantly better than EPOD in terms of both instantaneous flow-field estimation and turbulent-statistics reconstruction.
+	CNNs are able to provide a more effective reconstruction performance employing more POD modes at larger distances from the wall and employing lower wall-measurement resolutions.
+	Furthermore, the capability of tackling nonlinear features of CNNs results in estimation capabilities that are weakly dependent on the distance from the wall.
+}%
+%
+\graphicspath{{paper1/}}%
+%
+%
+%===============================================================================
+%                            BEGIN PAPER
+%===============================================================================
+%
+\begin{paper}
+
+\makepapertitle
+
+%------------------------------------------------------------------------------
+% Abstract
+%------------------------------------------------------------------------------
+%
+\begin{paperabstract}
+	This study assesses the capability of extended proper orthogonal decomposition (EPOD) and convolutional neural networks (CNNs) to reconstruct large-scale and very-large-scale motions (LSMs and VLSMs respectively) employing wall-shear-stress measurements in wall-bounded turbulent flows.
+	Both techniques are used to reconstruct the instantaneous LSM evolution in the flow field as a combination of proper orthogonal decomposition (POD) modes, employing a limited set of instantaneous wall-shear-stress measurements.
+	Due to the dominance of nonlinear effects, only CNNs provide satisfying results.
+	Being able to account for nonlinearities in the flow, CNNs are shown to perform significantly better than EPOD in terms of both instantaneous flow-field estimation and turbulent-statistics reconstruction.
+	CNNs are able to provide a more effective reconstruction performance employing more POD modes at larger distances from the wall and employing lower wall-measurement resolutions.
+	Furthermore, the capability of tackling nonlinear features of CNNs results in estimation capabilities that are weakly dependent on the distance from the wall.
+\end{paperabstract}
+
+
+%------------------------------------------------------------------------------
+% Article
+%------------------------------------------------------------------------------
+%
+\input{paper1/article.tex}
+
+
+%------------------------------------------------------------------------------
+% Bibliography
+%------------------------------------------------------------------------------
+%
+%\clearpage
+\bibliographystyle{jfm}
+\bibliography{thesis}
+%
+\IfFileExists{paper1/paper.bbl}{\input{paper1/paper.bbl}}{}
+
+%===============================================================================
+%                            END PAPER
+%===============================================================================
+\end{paper}

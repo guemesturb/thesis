@@ -1,0 +1,148 @@
+\documentclass[thesissizeG5]{MechThesis}
+%
+% Default options:
+% [thesissizeG5,twoside,onecolumn,10pt,reqno,tbtags,globalpagenum,final]
+%
+%
+% Available options:
+% - size: [a4paper, letterpaper, thesissisze, thesissizeA4, thesissizeG5]
+% - printing: [twoside, oneside]
+% - columns: [onecolumn, twocolumns]
+% - font size: [8pt, 9pt, 10pt, 11pt, 12pt]
+% - position of equation numbers: [leqno, reqno]
+% - split-equations numbers: [tbtags, centertags]
+% - page numbers in papers: [globalpagenum, paperpagenum]
+% - editing: [final, draft, printA4, cropmarks]
+% - papers cover: [happyadvisor] (use it if you have more than 8 papers)
+%
+%
+% Packages
+%
+% insert in this file any additional package
+\input{packages}
+%
+%
+% Commands
+%
+% insert in this file any additional command
+\input{commands}
+
+
+%-------------------------------------------------------------------------------
+% Thesis information
+%-------------------------------------------------------------------------------
+%
+\title[Sensing coherent structures from the wall]% Title used in the abstract (optional)
+{% Title of the thesis
+	Sensing coherent structures from the wall
+}%
+
+\author{Alejandro G\"uemes Jim\'enez}% Author
+
+\affiliation
+{%	Author's affiliation
+	Bioengineering and Aerospace Engineering Department, Universidad Carlos III de Madrid\\
+	Avenida de la Universidad, 30, Legan\'es, Spain%
+}%
+
+\titel
+{% Swedish title (for swedish abstract)
+	Detección de estructuras coherentes desde la pared
+}%
+
+\anslutning
+{% Author's swedish affiliation (for swedish abstract)
+	Departamento de Bioingeniería e Ingeniería Aeroespacial, Universidad Carlos III de Madrid\\
+	Avenida de la Universidad, 30, Legan\'es, España%
+}%
+
+\date{Legan\'es}{July}{2021}% City, Month, Year
+
+\info{% Defence information (in spanish)
+	Esta tesis se distribuye bajo licencia “Creative Commons \textbf{Reconocimiento – No Comercial – Sin Obra Derivada}”.\\[\baselineskip]
+	%
+	\includegraphics{creativecommons.pdf}
+	\\[\baselineskip]% Cover info (comment if no cover image is used)
+	%
+	{\it Cover:} numerical flow visualization of a turbulent channel flow.
+	%
+}
+
+%\printer{Universitetsservice US--AB, Stockholm}% Printer informations
+
+
+%===============================================================================
+%===============================================================================
+%                            BEGIN DOCUMENT
+%===============================================================================
+%===============================================================================
+
+% \includeonly{overview}
+
+\begin{document}
+
+
+%===============================================================================
+% Frontmatter
+%===============================================================================
+%
+\frontmatter
+
+\input{frontmatter}
+
+
+%===============================================================================
+% Part I: Overview and summary
+%===============================================================================
+%
+\mainmatter
+
+\part{Overview and summary}
+
+%-------------------------------------------------------------------------------
+% Overview and summary
+%
+\include{overview}
+
+
+%-------------------------------------------------------------------------------
+% Comment the following command if you do not want a separate page for Part II
+% in the table of contents
+%
+\tocpagebreak
+
+
+%===============================================================================
+% Part II: Papers
+%===============================================================================
+%
+\part{Papers}
+
+%-------------------------------------------------------------------------------
+% Summary of the papers
+%
+\makepapersummary
+\cleardoublepage
+
+%-------------------------------------------------------------------------------
+% Paper 1
+%
+\include{paper1/paper}
+
+%-------------------------------------------------------------------------------
+% Paper 2
+%
+\include{paper2/paper}
+
+%-------------------------------------------------------------------------------
+% Paper 3
+%
+\include{paper3/paper}
+
+
+%===============================================================================
+%===============================================================================
+%                            END DOCUMENT
+%===============================================================================
+%===============================================================================
+\end{document}

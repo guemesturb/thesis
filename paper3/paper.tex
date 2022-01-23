@@ -1,0 +1,102 @@
+%------------------------------------------------------------------------------
+% Define title, author(s), affiliation and publishing status
+%
+\papertitle[From sparse wall measurements to turbulent velocity fields] % Short title used in healines (optional)
+{%
+From sparse wall measurements to turbulent velocity fields through deep learning% THE COMMENT SYMBOL AT THE END OF THIS LINE IS NEEDED
+}%
+%
+\papertoctitle{From sparse wall measurements to turbulent velocity fields} % Title for toc
+%
+\paperauthor[A. Güemes \etal] % Short authors used in headlines and List Of Papers
+{%
+  Alejandro Güemes$^1$, Stefano Discetti$^1$, Andrea Ianiro$^1$, Beril Sirmacek$^2$, Hossein Azizpour$^{3,4}$ and Ricardo Vinuesa$^{5,4}$%
+}%
+%
+\listpaperauthor{Güemes, A., Discetti, S., Ianiro, A., Sirmacek, B., Azizpour, H. \& Vinuesa, R.}% (optional) Short authors used in List Of Papers
+%
+\paperaffiliation
+{%
+  $^1$ Aerospace Research Group, Universidad Carlos III de Madrid, Leganés, Spain\\%
+  $^2$ Smart Cities, School of Creative Technology, Saxion University of Applied Sciences, Enschede, The Netherlands\\%
+  $^3$ Division of Robotics, Perception and Learning, KTH Royal Institute of Technology, Stockholm, Sweeden\\
+  $^4$ Swedish e-Science Research Centre (SeRC), Stockholm, Sweden\\%
+  $^5$ Linn\'e FLOW Centre, KTH Mechanics, S-100 44 Stockholm, Sweden\\%
+}%
+%
+\paperjournal[Phys. Fluids, \textbf{Under review}] % Short publish info used in List Of Papers
+{%
+	Physics of Fluids, \textbf{Under review}%
+}%
+%
+\papervolume{}%
+%
+\papernumber{}
+%
+\paperpages{}%
+%
+\paperyear{2021}%
+%
+\papersummary%
+{% Insert summary of the paper here (used in introduction)
+This work evaluates the applicability of super-resolution generative adversarial networks (SRGANs) as a methodology for the reconstruction of turbulent-flow quantities from coarse wall measurements.
+The method is applied both for the resolution enhancement of wall fields and the estimation of wall-parallel velocity fields from coarse wall measurements of shear stress and pressure.
+The analysis has been carried out with a database of a turbulent open-channel flow with friction Reynolds number $Re_{\tau}=180$ generated through direct numerical simulation.
+Coarse wall measurements have been generated with three different downsampling factors $f_d=[4,8,16]$ from the high-resolution fields, and wall-parallel velocity fields have been reconstructed at four inner-scaled wall-normal distances $y^+=[15,30,50,100]$.
+We first show that SRGAN can be used to enhance the resolution of coarse wall measurements.
+If compared with direct reconstruction from the sole coarse wall measurements, SRGAN provides better instantaneous reconstructions, both in terms of mean-squared error and spectral-fractional error.
+Even though lower resolutions in the input wall data make it more challenging to achieve highly accurate predictions, the proposed SRGAN-based network yields very good reconstruction results.
+Furthermore, it is shown that even for the most challenging cases the SRGAN is capable of capturing the large-scale structures that populate the flow.
+The proposed novel methodology has great potential for closed-loop control applications relying on non-intrusive sensing.
+}%
+%
+\graphicspath{{paper3/}}%
+%
+%
+%===============================================================================
+%                            BEGIN PAPER
+%===============================================================================
+%
+\begin{paper}
+
+\makepapertitle
+
+%------------------------------------------------------------------------------
+% Abstract
+%------------------------------------------------------------------------------
+%
+\begin{paperabstract}
+This work evaluates the applicability of super-resolution generative adversarial networks (SRGANs) as a methodology for the reconstruction of turbulent-flow quantities from coarse wall measurements.
+The method is applied both for the resolution enhancement of wall fields and the estimation of wall-parallel velocity fields from coarse wall measurements of shear stress and pressure.
+The analysis has been carried out with a database of a turbulent open-channel flow with friction Reynolds number $Re_{\tau}=180$ generated through direct numerical simulation.
+Coarse wall measurements have been generated with three different downsampling factors $f_d=[4,8,16]$ from the high-resolution fields, and wall-parallel velocity fields have been reconstructed at four inner-scaled wall-normal distances $y^+=[15,30,50,100]$.
+We first show that SRGAN can be used to enhance the resolution of coarse wall measurements.
+If compared with direct reconstruction from the sole coarse wall measurements, SRGAN provides better instantaneous reconstructions, both in terms of mean-squared error and spectral-fractional error.
+Even though lower resolutions in the input wall data make it more challenging to achieve highly accurate predictions, the proposed SRGAN-based network yields very good reconstruction results.
+Furthermore, it is shown that even for the most challenging cases the SRGAN is capable of capturing the large-scale structures that populate the flow.
+The proposed novel methodology has great potential for closed-loop control applications relying on non-intrusive sensing.
+\end{paperabstract}
+
+
+%------------------------------------------------------------------------------
+% Article
+%------------------------------------------------------------------------------
+%
+\input{paper3/article.tex}
+
+
+%------------------------------------------------------------------------------
+% Bibliography
+%------------------------------------------------------------------------------
+%
+%\clearpage
+\bibliographystyle{jfm}
+\bibliography{thesis}
+%
+\IfFileExists{paper3/paper.bbl}{\input{paper3/paper.bbl}}{}
+
+
+%===============================================================================
+%                            END PAPER
+%===============================================================================
+\end{paper}

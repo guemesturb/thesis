@@ -1,0 +1,136 @@
+%% Creator: Inkscape inkscape 0.92.4, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'test.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{445.76177952bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.55997771)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{test.pdf}}%
+    \put(0.17566574,0.52148181){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textsl{y}+=15\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{test.pdf}}%
+    \put(0.11660797,0.41466785){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}−2.5\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{test.pdf}}%
+    \put(0.11660797,0.45357707){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}0.0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{test.pdf}}%
+    \put(0.11660797,0.49248629){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}2.5\end{tabular}}}}%
+    \put(0.03661148,0.44257678){\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textsl{y}\textsl{h}/\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{test.pdf}}%
+    \put(0.38276983,0.52148181){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textsl{y}+=30\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{test.pdf}}%
+    \put(0.58987391,0.52148181){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textsl{y}+=50\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{test.pdf}}%
+    \put(0.78849814,0.52148181){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textsl{y}+=100\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{test.pdf}}%
+    \put(0.97824931,0.46370913){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}EPOD\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{test.pdf}}%
+    \put(0.11660797,0.30734335){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}−2.5\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{test.pdf}}%
+    \put(0.11660797,0.34625258){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}0.0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{test.pdf}}%
+    \put(0.11660797,0.38516179){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}2.5\end{tabular}}}}%
+    \put(0.03661148,0.33525229){\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textsl{y}\textsl{h}/\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{test.pdf}}%
+    \put(0.97824931,0.35638464){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}FCN-POD\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{test.pdf}}%
+    \put(0.11660797,0.20001888){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}−2.5\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{test.pdf}}%
+    \put(0.11660797,0.23892809){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}0.0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{test.pdf}}%
+    \put(0.11660797,0.27783731){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}2.5\end{tabular}}}}%
+    \put(0.03661148,0.2279278){\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textsl{y}\textsl{h}/\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{test.pdf}}%
+    \put(0.97824931,0.24906015){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}DNS\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{test.pdf}}%
+    \put(0.15228251,0.0567778){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}−5\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{test.pdf}}%
+    \put(0.23010095,0.0567778){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{test.pdf}}%
+    \put(0.30791941,0.0567778){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}5\end{tabular}}}}%
+    \put(0.20877759,0.02175069){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textsl{x}\textsl{h}/\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{test.pdf}}%
+    \put(0.11660797,0.09269438){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}−2.5\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{test.pdf}}%
+    \put(0.11660797,0.13160359){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}0.0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{test.pdf}}%
+    \put(0.11660797,0.1705128){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}2.5\end{tabular}}}}%
+    \put(0.03661148,0.12060332){\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textsl{y}\textsl{h}/\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{test.pdf}}%
+    \put(0.3593866,0.0567778){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}−5\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{test.pdf}}%
+    \put(0.43720506,0.0567778){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{test.pdf}}%
+    \put(0.51502348,0.0567778){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}5\end{tabular}}}}%
+    \put(0.41588168,0.02175069){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textsl{x}\textsl{h}/\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{test.pdf}}%
+    \put(0.56649071,0.0567778){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}−5\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{test.pdf}}%
+    \put(0.64430913,0.0567778){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=28]{test.pdf}}%
+    \put(0.72212755,0.0567778){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}5\end{tabular}}}}%
+    \put(0.62298577,0.02175069){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textsl{x}\textsl{h}/\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=29]{test.pdf}}%
+    \put(0.77359481,0.0567778){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}−5\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=30]{test.pdf}}%
+    \put(0.85141323,0.0567778){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=31]{test.pdf}}%
+    \put(0.92923165,0.0567778){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}5\end{tabular}}}}%
+    \put(0.83008986,0.02175069){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textsl{x}\textsl{h}/\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=32]{test.pdf}}%
+    \put(0.97824932,0.14173566){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}FCN\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=33]{test.pdf}}%
+    \put(0.47195187,0.02251874){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}−3\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=34]{test.pdf}}%
+    \put(0.5405661,0.02251874){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=35]{test.pdf}}%
+    \put(0.6091803,0.02251874){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}3\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=36]{test.pdf}}%
+  \end{picture}%
+\endgroup%

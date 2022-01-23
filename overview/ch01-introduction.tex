@@ -1,0 +1,85 @@
+%===============================================================================
+\chapter{Introduction}\label{ch01}
+%===============================================================================
+Any body in relative motion with respect to its surrounding fluid faces drag forces.
+Thus, it will expend energy to conserve its total momentum, which will otherwise be reduced due to the drag forces acting on the body.
+Among the different drag sources, one of the most important is the friction drag exerted by the surrounding fluid on the body's wall or surface.
+\citet{jimenez2012cascades} reported that \textit{``roughly half the energy spent in transporting fluids through pipes and canals, or vehicles through air and water, is dissipated by turbulence in the immediate vicinity of walls"}.
+In the case of aviation industry, friction drag accounts for more than half of the total aircraft drag \citep{schrauf2005status}.
+For instance, greenhouse gas emissions emitted by the aviation industry in the European Union were 3.6\% of the total in 2016, and 13.4\% of transport emissions \citep{european2019european}.
+Consequently, it is of utmost importance to take into account this effect during the design process of any engineering device that involves a fluid in motion, such as aircraft, ships, windmills, or turbomachinery, to name a few examples.
+Based on this premise, world authorities have proposed different goals to mitigate any unnecessary energy consumption as well as its effect on the environment.
+The European Commission, e.g., has set the goal of reducing greenhouse emissions until Europe becomes a carbon neutral region by 2050 \citep{european2018clean}.
+In the same way, the Paris agreement sets the objective of keeping the global temperature increase below $2^{\circ}$C with respect to pre-industrial levels and pursue efforts to keep it to $1.5^{\circ}$C \citep{unfccc2015adoption}.
+Within this framework, a strong investment is taking place to better understand the forces arising from the interaction between a solid object in motion with respect to its surrounding fluid.
+This knowledge may allow the development of control techniques that improve the efficiency of these devices, therefore reducing their energy consumption.
+
+The mechanism behind friction forces in fluids is strongly dependent on the flow regime, either laminar or turbulent.
+The latter is highly predominant in natural flows and real-life applications.
+To provide a rigorous and unique definition of turbulence is a challenging task; for instance, \citet{tsinober2009informal} reports more than 10 different definitions by leading scientists in the field of turbulence.
+Here the definition by \cite{bradshaw2013introduction} is cited, which states that \textit{``turbulence is a three-dimensional time-dependent motion in which vortex stretching causes velocity fluctuations to spread to all wavelengths between a minimum determined by viscous forces and a maximum determined by the boundary conditions of the flow. It is the usual state of fluid motion except at low Reynolds numbers".}
+In other words, turbulence is a chaotic three-dimensional phenomenon, with nonlinear dynamics that involve a wide range of scales, both in space and time, which is often modelled as a series of eddies or whirls of different sizes.
+There are several theories that explain how these different-size eddies relate to each other, but in general they are based on the energy cascade view proposed by \citet{richardson1920supply} and extended by \citet{kolmogorov1941energy}.
+This view states that energy production occurs at the largest scales, and then energy flows to the smallest eddies where it is dissipated into heat.
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/ch01_fig01.pdf}
+  \caption{\label{ch01:fig01}Instantaneous velocity fluctuations of a turbulent channel flow. Red colour refers to positive fluctuations, while blue refers to negative ones. Data has been acquired from a direct numerical simulation of a turbulent channel flow available at the \href{https://doi.org/10.7281/T1PV6HJV}{\color{blue}{Johns Hopkins Turbulence Database}}.}
+\end{figure}
+
+Despite being chaotic, among the multiple scales of turbulence it is possible to identify patterns, as intuitive from the inspection of figure~\ref{ch01:fig01}.
+It provides a clear indication that, within the chaos of turbulence, patterns or structures that maintain their spatial coherence for a time can be identified.
+\citet{jimenez2018coherent} defined these flow regions, commonly known as \textit{coherent structures}, as \textit{"eddies with enough internal dynamics to behave relatively autonomously from any remaining incoherent part of the flow"}.
+According to the theory of Richardson and Kolmogorov, they are responsible for carrying the bulk of energy that will eventually be dissipated at the smallest scales.
+In wall-bounded flows, this process occurs close to the wall.
+Unfortunately, identifying these coherent structures and differentiating them from the rest of the range of scales in the fluid are a complex task, which has received the attention of turbulence researchers in the last 40 years \citep{hussain1983coherent,jeong1997coherent,jimenez2012cascades}.
+If we zoom into the big vortices or eddies seen in figure~\ref{ch01:fig01}, it can be seen that they are composed of smaller eddies.
+This process can be repeated until we reach the dissipative scales, where energy dissipation is taking place.
+Coherent structures and their dynamics can be controlled by means of actuation techniques with the aim of modifying the flow, reaching a new state that implies a gain \citep{hof2010eliminating}.
+While controlling coherent structures focuses on the large scales that carry the bulk of energy, control could be also applied to the near-wall viscous region, where the energy is dissipating, as shown by \citet{jimenez1994structure}.
+It is at this point that the question of which methods are more efficient to flow control arises, whether they are those that focus only on the viscous region close to the wall, where the energy is dissipating, or those that focus on controlling the largest scales that carry the bulk of energy.
+Thanks to the state-of-art high-resolution numerical and experimental data that have been produced in the last years, it has been possible to better understand the importance of coherent structures, as shown by \citet{jimenez2018coherent}.
+The knowledge acquired from direct numerical simulations (DNSs) and experiments of simple-geometry flows can be translated to more complex applications, such as the flow over commercial aircraft wings \citep{vinuesa2018turbulent}, turbines \citep{ouro2017hydrodynamic}, insects \citep{yao2020forward} or inside biological systems \citep{garcia2021demonstration}.
+
+Turbulent flows can be modelled through the Navier-Stokes equations as dynamical systems with high dimensionality.
+The existence of coherent structures represents an opportunity to approximate turbulence as a system with a much lower dimensionality, which can be tractable, for instance, for real-life control applications.
+Acquiring an approximate representation of coherent structures for simple-topology flows is relatively accessible through numerical simulations, where the entire flow state is known, or experiments, where different measurement techniques may be used to acquire complementary information of the flow.
+However, when dealing with real-life applications this is not practical.
+Carrying out a real-time numerical simulation of a turbulent flow affecting an industrial application is not feasible, both due to the current-available computational capabilities and to the uncertainty in the initial and boundary conditions of the system.
+In the case of experiments, available techniques are usually intrusive, as flow visualization or hot-wire anemometry, or require an experimental setup that could be too complex to install in real-life application, such as particle image velocimetry (PIV, see \citet{adrian1991particle}).
+For instance, figure~\ref{ch01:fig02} shows the experimental apparatus required by PIV to acquire instantaneous visualizations of the flow around a test model, which evidently cannot be installed on an aircraft in operation.
+To overcome this problem, measurement techniques that do not interfere with the flow and can be embedded in the wall are of interest, such as hot films or pressure taps.
+These wall-sensing techniques allow to acquire wall quantities such as pressure, shear stress or heat flux, which can later be used to infer the flow state far from the wall.
+In any case, these techniques also pose a technological challenge, since their spatial and temporal resolution must be sufficient to capture the widest possible range of scales.
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{imgs/ch01_fig02}
+  \caption{\label{ch01:fig02}Experimental setup at NASA Langley Research Center to investigate the flow around a hybrid-wing-body model. Courtesy of NASA.}
+\end{figure}
+
+\section{Objectives}
+The main objective of this dissertation is to develop a methodology to know the instantaneous state of a turbulent flow, focusing on its coherent structures, from wall signals employing sensors embedded in the wall.
+For that purpose, this thesis explores the relation between coherent structures and shear-stress and pressure fields at the wall, for which both linear and nonlinear reconstruction techniques have been considered.
+While linear techniques have already been assessed previously for this type of problem, the exhaustive application of nonlinear methods, and specifically of neural networks, has not begun to be explored until the last decade.
+This study is very timely, thanks to the availability of advanced neural network architectures and new computational resources.
+Taking this into account, the objective is to develop a set of techniques based on deep learning to address the nonlinear relationship between the quantities measured at the wall and the characteristics of the flow.
+
+\section{Thesis structure}
+The present thesis is structured in two parts.
+Part I starts with an introduction (Chapter~\ref{ch01}) and continues with a review of the state of the art of wall turbulence (Chapter~\ref{ch02}), focusing on the relationship between the structures that populate turbulent flows and their footprint on the wall.
+Chapter~\ref{ch02} also introduces the proper orthogonal decomposition, a statistical tool commonly used to represent coherent structures.
+Chapter~\ref{ch03} presents a review of the main characteristics of neural networks, as well as their applicability as a tool for the study and control of turbulence.
+The neural networks that have been developed in this thesis for the reconstruction of turbulent flows from wall probes are also presented.
+Finally, Chapter~\ref{ch04} summarizes the main contributions and conclusions of this thesis.
+
+The original contributions that have been produced during the development of this thesis are presented in Part II.
+The first article presents the original version of the neural network developed during this thesis.
+The second article improves this architecture, making it capable of predicting larger fields and capturing a greater range of energy scales.
+Finally, the last contribution evaluates the capacity of generative adversarial networks to improve these predictions when the wall data does not contain all the turbulent scales.
+The aforementioned papers are:
+
+\noindent\textbf{Paper 1}: \textit{Sensing the turbulent large-scale motions with their wall signature}
+
+\noindent\textbf{Paper 2}: \textit{Convolutional-network models to predict wall-bounded turbulence from wall quantities}
+
+\noindent\textbf{Paper 3}: \textit{From coarse wall measurements to turbulent velocity fields through deep learning}

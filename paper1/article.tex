@@ -1,0 +1,430 @@
+% \documentclass[12pt, twocolumn]{article}
+% \usepackage{times}
+
+% \usepackage{epsfig}
+% \usepackage[latin1]{inputenc}
+% \begin{document}
+%
+%\title{Contrasting Information Retrieval Systems and Context-Free
+%Grammar with Tuna}
+%\author{Donald Duck and Mickey Mouse}
+%
+%\date{}
+%
+%\maketitle
+%
+%
+%
+%
+%\section*{Abstract}
+%
+% The implications of concurrent archetypes have been far-reaching and
+% pervasive. Given the current status of heterogeneous technology,
+% cyberinformaticians daringly desire the key unification of the Turing
+% machine and erasure coding. We explore new decentralized information,
+% which we call Tuna.
+
+
+
+
+\section{Introduction}
+
+Wall-bounded turbulent flows are present in many industrial and aeronautical applications, including all kind of vehicles immersed in a fluid or turbomachinery flows.
+Understanding the dynamics of these flows is of utmost importance to enabling sensing and control to improve the performances in terms of skin friction, heat transfer, etc.
+
+% LSMs
+Among the spectral pipeline of scales in a turbulent boundary layer, large-scale and very-large-scale motions (LSMs and VLSMs respectively, shown to have a wavelength of up to more than 10 flow characteristics lengths) are one of the main sources of momentum and energy transport.
+LSMs and VLSMs are regions of the flow that present spatial and temporal correlation, whose evidences are available in several research studies \citep{kline1967structure,favre1967structure,blackwelder1972time,wark1991experimental,kim1999very,hutchins2007evidence}.
+LSMs have been documented as long features of uniform high or low momentum in the logarithmic region of a turbulent boundary layer.
+\citet{hutchins2007evidence} proved using a spanwise rake of hot-wires that these elongated regions extended up to a length of the order of 20 boundary layer thicknesses $\delta_{99}$.
+These features were also found experimentally in turbulent pipe flows and channel flows, as reported by \citet{monty2007large} and \citet{discetti2019characterization}.
+
+% LSMs on inner-scales
+LSMs have been proved both experimentally \citep{hutchins2007large, mathis2009large} and numerically \citep{hoyas2006scaling,hoyas2008reynolds} to have a direct impact on the inner-scales fluctuations close to the wall.
+It has been shown that the LSMs present in the logarithmic region have an amplitude and frequency modulation effect on the streamwise fluctuations close to the wall \citep{marusic2010predictive,mathis2011predictive}, which has also been extended to the wall-normal and spanwise fluctuations \citep{ganapathisubramani2012amplitude}.
+\citet{mathis2013estimating} showed that it is possible to estimate the wall-shear-stress fluctuations from the one-point measurements of LSMs in the logarithmic region.
+These works \citep{marusic2010predictive,mathis2011predictive,ganapathisubramani2012amplitude,mathis2013estimating} proposed a model that assumes that the near-wall small-scale structures are universal\citep{jimenez1999autonomous} and that the effect of Reynolds number can be modelled as an amplitude and frequency modulation effect of the LSMs on the small scales.
+Furthermore, they showed that the spatial resolution of the measurements was a driving parameter to obtain accurate predictions.
+
+% Control the LSMs
+Due to the relevance that LSMs have on the flow, it has become of utmost importance to define techniques that allow to detect and control them.
+\citet{abbassi2017skin} proposed the use of jets to reduce the skin-friction drag in turbulent boundary layers.
+Piezo-ceramic actuators to generate a transverse travelling wave along the wall surface \citep{bai2014active} or a spanwise-oscillating surface \citep{gouder2013turbulent} have also been explored for the same purpose.
+Suction and blowing wall jets that weaken the near-wall streaks \citep{lee1997application} have also been proven as an effective solution.
+
+% EPOD
+Closed-loop control strategies require proper sensorization strategies for the flow; the clear role played by LSMs thus set the requirements of an effective real-time LSMs-detection solution with minimum intrusiveness.
+Pointwise probes have been often explored as a good compromise between the needs of low-processing time and minimization of flow disturbance.
+The flow state is then estimated using only the probe data, thus requiring robust algorithms leveraging statistical evidence of correlations between flow features and probe data.
+Linear stochastic estimation \citep{adrian1996stochastic} has been successfully used to estimate turbulent fields \citep{tinney2006spectral,tinney2008low,baars2016spectral,suzuki2017estimation,illingworth2018estimating,encinar2018reconstructing} based on a limited set of probes.
+One of the most promising approaches that have been proposed is the extended proper orthogonal decomposition (EPOD, see e.g. \citet{boree2003extended}).
+Using the projection of the snapshot matrix of a given quantity on the temporal basis corresponding to another one, it has been shown that it is possible to extract the correlation between synchronized measurements through the extended POD modes \citep{boree2003extended}.
+The compactness of the POD basis allows data-driven filtering, thus providing more robust estimations than the simple application of linear stochastic estimation. Using this correlation it has been shown that accurate far-field predictions of a turbulent jet can be obtained, \citep{tinney2008low} as a combination of the flow-field POD modes through time coefficients linearly-estimated based on instantaneous point-wise measurements.
+The EPOD has been used previously to reconstruct turbulent flow fields using velocity probes in a turbulent channel \citep{discetti2018estimation} and in a high-Reynolds-number pipe flow \citep{discetti2019characterization}.
+
+% POD with NN
+The EPOD approach in \citet{discetti2018estimation}, however, does not allow to take into account nonlinearities in the relation between probe data and flow features.
+More specifically, the amplitude modulation effects that LSMs have on the near-wall scales \citep{hutchins2007large,mathis2009large} could not be identified using EPOD.
+One promising path to embed \textcolor{black}{these} non-linear effects is the use of artificial neural networks (ANNs), firstly introduced with the \textit{perceptron} concept \citep{rosenblatt1958perceptron}.
+ANNs are a set of layers that transform a fixed-size input (for example, a flow velocity field) into a fixed-sized output (for example, a coefficient) by computing a weighted sum of their inputs from the previous layer and applying a non-linear function to the result \citep{lecun2015deep}.
+It has been shown that an ANN with a single hidden layer is equivalent to perform a POD on the data \citep{baldi1989neural} while non-linear effects can be introduced making use of several hidden layers.
+
+% NN in Fluid dynamics
+ANNs have been applied to a large variety of research fields, including fluid mechanics.
+The main applications include the solution of the Reynolds-Averaged Navier-Stokes (RANS) and of the large-eddy simulation (LES) problems, improving turbulence modelling \citep{ling2016reynolds,wu2017priori,maulik2019subgrid,nikolaou2019progress}.
+\citet{raissi2019deep} used a multi-layer perceptron (MLP) to estimate the lift coefficient and the displacement of a freely vibrating cylinder from flow measurements in the surroundings.
+Additionally, they were able to estimate the flow fields from the concentration of a passive scalar in the flow.
+Another possible application has been shown in \citet{hack2016data}, where streaks in pressure-gradient boundary layers are classified into those that will break into turbulence and those \textcolor{black}{which will} not.
+
+%% Reconstruction with NN
+As reviewed by \citet{brunton2020machine}, several authors employed machine learning for modelling fluid flows.
+A promising application of ANNs in turbulence is the direct reconstruction of turbulent flows from external measurements.
+In particular, \citet{milano2002neural} carried out a reconstruction of the near-wall flow using a neural network to approximate the higher-order terms of the second-order model as:
+\begin{equation}
+   \underline{u}(\underline{x},t) = \underline{\omega}\,y+\frac{Re}{2}\frac{d\underline{P_w}}{\underline{x}}y^2 + ANN(\underline{P_w},\underline{\tau_{w}}),
+   \label{eq1}
+\end{equation}
+
+\noindent where $\underline{\omega}$ is the wall tangential vorticity, $\underline{P_w}$ is the wall pressure field,and $\underline{\tau_{w}}$ the wall-shear-stress field.
+The model provided a good reconstruction up to $y^+\approx 40$ using wall-shear and pressure measurements.
+Superscript $+$ refers to inner-scaling, based on the friction velocity $u_{\tau}=\sqrt{\tau_w/\rho}$ and viscous length $l_*=\nu/u_{\tau}$ (being $\tau_w$, $\rho$, and $\nu$ the mean wall-shear stress, density and viscosity respectively).
+An ANN model was proposed in \citet{maulik2017neural} for the deconvolution and regularization of low-pass spatially filtered turbulent fields.
+In \citet{fukami2019super} two different ANN models were used to increase the resolution of turbulent fields; they use DNS fields to train the model to upgrade low-resolution fields into fully-resolved ones.
+\citet{lusch2018deep} has shown that ANNs can be used to predict the nonlinear dynamics of the flow around a cylinder. In \citet{srinivasan2019predictions} both MLP and long short-term memory (LSTM) ANNs have been used to predict the temporal evolution of a low-order model of a turbulent flow.
+Due to the sequential nature of LSTM, their results outperformed those obtained by the MLP, providing very accurate turbulence statistics.
+Based on the results of these studies, the ANNs appear to be a perfect candidate to estimate the dynamics of POD modes from a limited set of time-resolved wall measurements.
+
+%% CNN in reconsyruction
+Among ANNs, convolutional neural networks (CNNs) take advantage of their input hierarchical shape \citep{fukushima1980neocognitron,lecun1985learning,fukushima1988neocognitron,lecun1989backpropagation}.
+CNNs have been applied to a large variety of research fields \citep{liu2017survey,ou2019vector}, and are recently being exploited for turbulent-flow estimation.
+For instance, CNNs were used in \citet{fukami2019super} to increase the resolution of the flow field, employing as input the flow field itself but with lower resolution.
+\citet{sasaki2019transfer} reports a remarkable application in which convolutional kernels with different inputs are used to estimate the streamwise velocity fluctuations of a zero-pressure-gradient turbulent boundary layer.
+In \citet{guastoni2020prediction} CNNs have been used to reconstruct instantaneous velocity fields parallel to the wall up to distances of $y^+=50$.
+Their results show that first- and second-order statistics can be computed accurately from the reconstructed flow fields, although the reconstruction error increases with the wall distance.
+
+% Objectives
+Aiming at the identification of a suitable sensing device for the detection of large- and very-large-scale motions in a turbulent wall-bounded flow, we explore the performances of CNNs for the identification of the large-scale instantaneous flow fields from a limited set of shear-wall probes.
+A comparison with the EPOD is carried out to assess whether the non-linearity provided by CNNs can improve the quality of the flow field reconstruction.
+
+% Structure
+This work is based on a computational dataset which is used both for the training of the estimation methodologies and for the assessment of the reconstruction performances. Wall-shear-stress values at a limited number of locations are employed to reconstruct the flow field in a turbulent channel flow at different wall-parallel planes ranging from $y^+=50$ to $y^+=200$, being the friction-based Reynolds number equal to $Re_\tau =1000$.
+The paper is organised as follows: Sec.~\ref{sec:02} describes the different methodologies employed to reconstruct the LSMs in the flow field and the database used to assess their performance.
+In Sec.~\ref{sec:03} the obtained results are presented and discussed, prior to the conclusions in Sec.~\ref{sec:04}.
+
+
+\section{\label{sec:02}Methodology}
+The reference frame $\underline{x}=[x,y,z]$ adopted in this work is aligned with the streamwise $x$, wall-normal $y$ and spanwise $z$ directions, being their corresponding fluctuating velocity components denoted as $\underline{u}=[u,v,w]$.
+Velocity fields are decomposed according to the Reynolds decomposition; the fluctuating velocity components are then expressed hereafter as a linear combination of a spatial basis, composed of spatially orthonormal functions $\underline{\phi}_i\left(\underline{x}\right)$, times a temporal basis, made of temporally orthonormal functions $\psi_i(t)$, by means of the proper orthogonal decomposition (POD) \citep{lumley1967structure}:
+
+\begin{equation}
+   \underline{u}(\underline{x},t) \approx \sum_{i=1}^{Nm}\psi_i(t)\sigma_i\underline{\phi}_i(\underline{x}),
+\end{equation}{}
+
+\noindent with $N_m$ being the number of POD modes and $\sigma_i$ weighs the contribution of each mode to the snapshots.
+POD modes are optimal in the least square sense: the first $r$ POD modes form an orthogonal basis which minimizes the Frobenius norm of the flow field reconstruction error, i.e. provides the best rank-$r$ approximation of the snapshots.
+This implies that POD provides flow field modes ordered by their energy content.
+Owing to the prevalent role in momentum and energy transport of LSMs, it has indeed been shown that the first POD modes can be thought of as representations of the LSMs present in the flow \citep{wu2014study}.
+
+The practical implementation with the dataset described in Sec.~\ref{sec:23} follows the snapshot POD method \citep{sirovich1987turbulence}.
+The velocity fields are reshaped in a vector form and rearranged in a matrix  $\underline{\underline{U}}$ of size $n_t \times n_p$, where $n_t$ is the number of available flow fields and $n_p$ is the number of grid points.
+The corresponding SVD is:
+
+\begin{equation}
+   \underline{\underline{U}} = \underline{\underline{\Psi}}\,\underline{\underline{\Sigma}}\,\underline{\underline{\Phi}}.
+\end{equation}
+
+Assuming statistical convergence, flow fields at a generic time instant (inside and outside of the training dataset) can be quite accurately be described as a linear combination of the modes contained in the $\underline{\underline{\Sigma}}\,\underline{\underline{\Phi}}$ matrix by the corresponding time coefficients, if available.
+One strategy to obtain these time coefficients for time instants outside of the dataset is the synchronized use of pointwise probes and flow field data, with the probes being trained to \textit{reconstruct} the velocity fields.
+The velocity field at a given instant can then be expressed as:
+
+\begin{equation}
+   \underline{u}^* = \underline{\psi}^*\,\underline{\underline{\Sigma}}\,\underline{\underline{\Phi}},
+\end{equation}
+
+\noindent where estimated quantities are denoted with the superscript $*$.
+In the following we describe two methodologies employed for the estimation of the time coefficients $\underline{\psi}^*$.
+
+\subsection{\label{sec:12}Extended proper orthogonal decomposition}
+
+The snapshot POD can be applied both to the flow field and to any other quantity measured by synchronized probes immersed in the flow or at the wall, e.g. corresponding to a set of probes  $\underline{\underline{U}}_{pr}$:
+
+\begin{equation}
+   \underline{\underline{U}}_{pr} = \underline{\underline{\Psi}}_{pr}\,\underline{\underline{\Sigma}}_{pr}\,\underline{\underline{\Phi}}_{pr}.
+\end{equation}
+
+The extended POD modes \citep{boree2003extended}, corresponding to the projection of the probe measurements, on the flow-field temporal basis can be estimated as:
+
+\begin{equation}
+   \underline{\underline{\Psi}}_{pr}^T\underline{\underline{U}} =  \underline{\underline{\Psi}}_{pr}^T\,\underline{\underline{\Psi}}\,\underline{\underline{\Sigma}}\,\underline{\underline{\Phi}} = \underline{\underline{\Xi}}\,\underline{\underline{\Sigma}}\,\underline{\underline{\Phi}} = \underline{\underline{\Sigma}}_e\,\underline{\underline{\Phi}}_e,
+   \label{eq2}
+\end{equation}{}
+
+\noindent where the subscript $e$ refers to extended POD modes and the matrix $\underline{\underline{\Xi}} = \underline{\underline{\Psi}}_{pr}^T\,\underline{\underline{\Psi}}$ is a matrix containing information about the temporal correlation between flow and probe modes.
+If the dataset is sufficiently large to reach statistical convergence, it is possible to assume that the matrix $\underline{\underline{\Xi}}$ represents a good estimate of the relation between the POD time coefficients at a certain probe snapshot and those of an out-of-sample estimate of the flow field.
+Taking this and equation~\ref{eq2} into account, it is possible to estimate the temporal POD coefficients of the flow field using the wall-field POD time coefficient and the temporal correlation matrix:
+
+\begin{equation}
+   \underline{\underline{\Psi}}^* = \underline{\underline{\Psi}}_{pr}\,\underline{\underline{\Xi}}.
+\end{equation}
+
+A flow field can thus be reconstructed by means of a set of probes once the temporal correlation matrix is known.
+In this work we will explore the use of wall sensors, since it is of more practical application if compared to probes immersed in the flow.
+
+The EPOD reconstruction is equivalent to a linear stochastic estimation and as shown in \citet{discetti2018estimation} it is an energy preserving process.
+The energy-optimality of POD modes can then be enforced by employing statistical filters \citep{discetti2018estimation} and improving the reconstruction with respect to LSE by cleaning the data from uncorrelated features.
+This approach has been shown to be successful in several application, but it is not able to take into account non-linear effects.
+
+\begin{equation}
+   \underline{\underline{U}}^* = \underline{\underline{\Psi}}^*\,\underline{\underline{\Sigma}}\,\underline{\underline{\Phi}}
+   \label{ur}
+\end{equation}
+
+\subsection{\label{sec:22}Artificial neural network}
+
+The alternative approach pursued here to estimate the POD time coefficient is through the use of ANNs.
+Probe data can be rearranged in a tensor form $\underline{\underline{\underline{W}}}$ of size $n_t\times n_w \times n_h$, where $n_w$ is the number of grid points in the width direction and $n_h$ is the number of grid points in the height direction $(n_p=n_w\times n_h)$.
+
+The tensor $\underline{\underline{\underline{W}}}$ is passed through a set of convolutional and max-pooling layers that halve sequentially the field size.
+The number of convolutional and max-pooling layers depends on the initial wall-shear stress field resolution, thus three different CNN architectures have been set depending on this feature.
+
+When the tensor has been reduced to the minimum possible size, it is reshaped in a vector form $\underline{v}$ by means of a flatten layer, and it is passed through two fully-connected layers with weights $\underline{\underline{w}}$.
+The last fully-connected layer outputs a single value that corresponds to the temporal POD mode of the flow field associated to the wall-shear-stress field.
+
+\begin{equation}
+   \underline{\psi}_i^*=\underline{\underline{w}}_2\times \underline{\underline{w}}_1 \times \underline{v}
+\end{equation}{}
+
+Finally, the temporal POD-mode estimation obtained through CNNs can be used to reconstruct the flow fields from a set of wall probes applying Eq.~\ref{ur}.
+Different CNNs have been trained for different probe spacings, wall-distance positions of the flow fields and the first 10 temporal POD modes, resulting in a total of 120 different CNNs.
+A simplified sketch of the CNN architectures can be seen in Fig. \ref{fig:schem}.
+
+\begin{figure}
+\includegraphics[width=\columnwidth]{fig1.pdf}% Here is how to import EPS art
+\caption{\label{fig:schem}Schematic view of the CNN architecture.}
+\end{figure}
+
+A rectified linear unit ($ReLU$) activation function \citep{nair2010rectified} has been used in the fully connected layers of the CNNs architecture to take into account the non-linearities of the flow, while an Adam optimizer \citep{kingma2014adam} with a constant learning rate of 0.001 has been selected to update the weights of the different neuron layers.
+
+\begin{equation}
+ReLU(x)=max\{0,x\}
+\end{equation}{}
+
+\subsection{\label{sec:23}Dataset description}
+
+The different methods have been tested employing a Direct Numerical Simulation (DNS) dataset that includes full flow-field information from a numerical simulation in a channel flow at friction Reynolds number $Re_{\tau}\approx 1000$.
+The channel-flow database is available at the Johns Hopkins Turbulence Database (http://turbulence.pha.jhu.edu/).
+The channel has a dimension of 2 half-channel-heights $h$ from wall to wall, $3\pi h$ in the span-wise direction and $8\pi h$ in the stream-wise direction.
+The DNS database covers one channel-flow through-time $8\pi h/U_b$ (where $U_b$ is the channel bulk velocity) with a DNS time step of $\delta_t = 0.0014h/U_b$.
+More details on the numerical simulations can be found by \citet{li2008public,yu2012studying}.
+
+To train the proposed methodologies and to assess their capability of reconstructing the LSMs, we collected both wall-shear-stress fields and $[u,v]$ fields in streamwise-spanwise planes located at four distances from the wall.
+These fields were representative of square $h\times h$ domains parallel to the wall located at $y^+=[50,100,150,200]$.
+The fields resolution is equal to $128\times128$ points.
+The wall-friction fields were extracted at the same temporal instants in the same $[x,z]$ region with three different spatial resolutions, $[128\times128,64\times64,32\times32]$, covering in all cases the same $h\times h$ area.
+
+\textcolor{black}{Only 24 flow and wall-shear fields, separated by $t^+=1000$ and therefore uncorrelated}, can be extracted in the same position due to the limited timespan of the simulation.
+To acquire a well-converged dataset, the flow and wall-shear fields have been extracted at different positions in the streamwise and spanwise directions of the bottom part of the channel domain, taking advantage of the simulation homogeneity in those directions.
+Specifically, flow fields have been obtained in 26 streamwise locations and in 10 spanwise locations.
+Fields have been extracted each 0.25 convective times, leading to 100 different temporal fields at each location. The total amount of available flow and wall fields is 26000.
+Taking into account that this quantity is more than enough to reach statistical convergence and that the dataset is aimed to be used for training, validation and testing of different LSMs estimation methods, three field subsets have been extracted: 7000 fields for training, 500 fields for validation (only used in the CNN) and 7500 fields for testing.
+It is important to mention that the field subsets have been separated in the time domain, i.e. belong to snapshots sets extracted respectively at the beginning and at the end of the sequence.
+A sketch of the fields extracted from the DNS domain is given in figure~\ref{fig:sketch}, while a description of each dataset is provided in table~\ref{tab:table4}.
+
+\begin{table}
+  \begin{center}
+\def~{\hphantom{0}}
+  \begin{tabular}{lcccc}
+        \hline
+        Case & $y^+$ & Resolution $[pt]$ & EPOD symbol & CNN symbol\\\hline
+        H050 &  50 & \multirow{4}{*}{128 $\times$ 128} & \multirow{4}{*}{\lsy{red}{ws}{-}} & \multirow{4}{*}{\lsy{red}{s*}{-}} \\
+        H100 & 100 &                   &                   &                   \\
+        H150 & 150 &                   &                   &                   \\
+        H200 & 200 &                   &                   &                   \\\hline
+        M050 &  50 & \multirow{4}{*}{ 64 $\times$  64} & \multirow{4}{*}{\lsy{blue}{wo}{-}} & \multirow{4}{*}{\lsy{blue}{o*}{-}} \\
+        M100 & 100 &                   &                   &                   \\
+        M150 & 150 &                   &                   &                   \\
+        M200 & 200 &                   &                   &                   \\\hline
+        L050 &  50 & \multirow{4}{*}{ 32 $\times$  32} & \multirow{4}{*}{\lsy{black}{wt}{-}} & \multirow{4}{*}{\lsy{black}{t*}{-}} \\
+        L100 & 100 &                   &                   &                   \\
+        L150 & 150 &                   &                   &                   \\
+        L200 & 200 &                   &                   &                   \\\hline
+  \end{tabular}
+  \caption{Dataset description. For each case, 7000 fields have been extracted for training, 500 for validation, and 7500 for testing. }
+  \label{tab:table4}
+  \end{center}
+\end{table}
+
+\begin{figure}
+\includegraphics{fig2.pdf}% Here is how to import EPS art
+\caption{\label{fig:sketch}Schematic representation of the flow and wall fields extracted from the Channel Flow DNS spatial domain. Axes are not equally scaled.}
+\end{figure}
+
+The POD modes have been computed using the fluctuating velocity fields.
+Figure~\ref{fig:sigma} reports both the modes energy distribution (i.e the eigenvalue distribution $\lambda_i=\sigma_i^2$) and the cumulative energy content for the flow-field snapshots.
+It is well known that the first POD modes correspond to the large-scale motions present in the flow \citep{liu2001large,wu2014study} while following modes \textcolor{black}{are} associated with smaller and less-energetic structures.
+According to previous literature, LSMs and VLSMs account for approximately 40\% of the turbulent kinetic energy \citep{discetti2019characterization,guala2006large,vila2017adverse} which approximately correspond here to the first 10 POD modes.
+In the following, we thus focus on the estimation of the time coefficients for these modes only, resulting in a low-order reconstruction of the LSMs and VLSMs.
+Turbulent flows are characterized by having a rich range of spatial scales, which in this case makes necessary a large number of modes (between 400 and 900) to reach 90\% of the cumulative energy spectrum.
+When analyzing the energy contribution of each mode at different wall-normal positions, it can be seen that, the closer to the wall, the smaller is the contribution of the LSMs, which is not surprising since close to the wall the smallest scales energy contribution is more significant \citep{ganapathisubramani2012amplitude}.
+
+\begin{figure}
+\includegraphics{fig3.pdf}% Here is how to import EPS art
+\caption{\label{fig:sigma}a) Energy spectrum and b) cumulative energy contribution of the flow field modes of the channel simulation. Colours refer to the wall distance position of the flow fields: $y^+=50$ \lcap{-}{red}, $y^+=100$ \\\lcap{--}{blue}, $y^+=150$ \lcap{.-}{black}, $y^+=200$ \lcap{:}{green}.}
+\end{figure}
+
+\section{\label{sec:03}Results}
+
+This section presents the LSM reconstruction with 10 POD modes using EPOD and CNN techniques.
+The main implementation difference is that EPOD is able to estimate simultaneously the time coefficients of all the POD modes, while a CNN needs a separate training for each mode.
+From the practical viewpoint, EPOD and CNN work with the same input. As explained in Sec.~\ref{sec:02} the input data are the streamwise wall-shear-stress fields, while the predicted output is the first 10 POD time coefficients.
+As argued in the previous section, this is normally sufficient to detect the large-scale motions.
+Having available the target fields to be reconstructed, the actual temporal POD modes of each field can be computed and it is possible to employ the low-order reconstruction of the fields obtained with the first 10 modes as reference field.
+
+\subsection{\label{sec:0301}A-priori assessment}
+
+\begin{figure}
+\includegraphics{fig4.pdf}% Here is how to import EPS art
+\caption{Time correlation coefficient matrix $\underline{\underline{\Xi}}$ for EPOD estimation. Columns report data at fixed wall distance $y^+$. Rows report data at fixed wall-shear-stress resolution.}
+\label{fig:xi_dudy}
+\end{figure}
+
+\begin{figure}
+\includegraphics{fig5.pdf}% Here is how to import EPS art
+\caption{\label{fig:train}Mean-squared-error evolution for the training \lcap{--}{blue} and validation \lcap{-}{black} datasets for the first temporal POD-mode coefficient in the case H050 (see table~\ref{tab:table4}).}
+\end{figure}
+
+Both methods (EPOD and CNN) allow an \textit{a priori} assessment of the reconstruction ability, without having to rely on a direct comparison with a ground truth, which is of course not available in experiments.
+The estimation performances of the EPOD can be deduced for instance from the temporal correlation coefficient matrix $\underline{\underline{\Xi}}$. Fig.~\ref{fig:xi_dudy} shows the $\Xi_{i,i}$ values for the first 20 temporal POD modes for all the tested wall-distance positions and wall-shear-stress-field resolutions.
+It can be seen that the matrices exhibit a diagonal dominance in the north-west corner, which corresponds to a direct relation between the most energetic modes of flow fields and wall-shear stress.
+While this dominance is not a necessary condition for high-quality reconstruction, it is an indicator of a ``healthy'' correspondence of the most energetic features in flow fields and probe data.
+This is needed to achieve a compact and efficient reconstruction, since the energy of each mode is not spread over a range of modes. However, this dominance disappears starting from the 5th-6th mode.
+\textcolor{black}{Moreover, this correlation between low-frequency features in the flow and low-frequency features at the wall impedes the EPOD to capture the amplitude modulation effects that the LSMs produce over high-frequency near-wall scales \citep{mathis2009large}.}
+The wall-distance is the most relevant parameter; as expected, the peak of the correlation coefficient of the first modes is larger for the flow fields located closer to the wall. On the other hand, the resolution level of the wall measurements seems to have a minor effect, which could indicate that coarser meshes could be employed without significantly affecting the estimation quality.
+This is clearly an important indication to simplify the practical implementation of this method in experiments.
+
+For CNNs, the validation error is a directly interpretable indicator of the quality of the reconstruction.
+Figure~\ref{fig:train} shows the evolution of both training and validation datasets for the first mode of the H050 case (see table~\ref{tab:table4}).
+During training, a callback function was used initially to select the number of iterations, also called epochs, based on the mean-square error evolution of the validation dataset.
+However, after the first training it was noticed that the validation mean-square error had a significant scatter and a low rate of decrease, while the training error at the stopping epoch was still clearly descending for increasing number of epochs. Because of this, it was decided to fix the number of epochs equal to 100.
+
+An important metric for comparison is the training time of EPOD and CNN.
+Both data-driven techniques have been trained in a standard workstation (Intel\textsuperscript{\textregistered}  Core\textsuperscript{\texttrademark} i9-8950K CPU @ 2.9 GHz with NVIDIA GeForce\textsuperscript{\textregistered} GTX 1050 Ti GPU with Max-Q design).
+EPOD has required 7 minutes to train case M050, while CNNs have required 44 minutes for the training of the same case.
+It has to be reminded that 10 different CNNs have been trained, one for each of the first 10 first temporal POD modes.
+Considering the required time to train the CNNs for a single temporal POD mode, it is reduced to 4 minutes.
+The larger computational cost required by CNNs is counterbalanced by the possibility of tackling non-linear effects related with the LSMs present in the flow.
+The estimation time for each field is of the order of $0.01s$ per snapshot for CNN, while it is practically real-time for EPOD.
+This is important to allow the possibility of active closed-loop flow control based on flow field estimation.
+However, it has to be remarked that the selected architecture is not conceived for direct implementation in active flow control, and significant improvements could be obtained employing dedicated high-performance hardware.
+
+\subsection{\label{sec:0302}LSMs-reconstruction performance}
+
+For the \textit{a posteriori} assessments of the LSM reconstruction techniques, several metrics have been used.
+The first one is the squared correlation coefficient $R^2$ of the temporal mode coefficients, which quantifies the quality of the reconstruction of $\psi^*_i$ before reconstructing the flow fields.
+It is defined as:
+
+\begin{equation}
+   R^2_{\psi_i} = \frac{\overline{\psi^*_i\psi_i}^2}{\overline{\psi_i^{*2}}\, \overline{\psi_i^2}}.
+\end{equation}{}
+
+The squared correlation coefficient is reported in figure~\ref{fig:wide2} for both EPOD and CNN techniques.
+Here and in the following, ensemble-averaged values are indicated as $\overline{\cdot}$.
+For colour code, the reader is referred to table~\ref{tab:table4}.
+CNN abundantly surpasses EPOD in reconstruction quality for all the analyzed cases, independently of wall-distance and wall-shear-stress resolution.
+The squared correlation coefficient achieved by EPOD for the case H50 (the one closer to the wall and with higher resolution, thus the most favourable case) is lower than the value reached by CNN for case L200 (the most challenging case, further from the wall and with lower resolution) for all the first 10 modes.
+Additionally, EPOD shows a steep drop in performance beyond the third POD mode in most cases, while CNNs are significantly more robust.
+While the analysis here is limited to the first 10 POD modes due to the available computational resources, it can be expected that CNNs can pave the way to successful reconstruction of also higher-order modes.
+
+Overall, the correlation coefficient spotlights the limits of EPOD for LSM detection.
+This is most likely to be addressed to non-linear effects of LSMs on the wall signature, which are not modelled by EPOD and become more intense when moving away from the wall.
+CNNs exhibit a  negligible decrease of the squared correlation coefficient when going away from the wall, thus extending the capability of flow-field estimation from the wall signature.
+However, this effect could be an artifact of the number of selected modes. The energy content extracted with the first 10 POD modes is different at each distance from the wall, as shown in figure~\ref{fig:sigma}.
+In the regions closer to the wall ($y^+=50$) the first modes do not represent the LSMs but the near-wall scales affected by them. Thus, the reconstruction of the full instantaneous fields would feel a significant larger effect of the wall distance on the reconstruction performance.
+In terms of wall-shear-stress resolution, CNNs show a weak sensitivity, though stronger than EPOD.
+This can be probably ascribed to the fact that the non-linear effects require larger datasets in order to be adequately characterized.
+This trend can be explained considering that reducing the resolution would actually tend to the asymptotic result corresponding to a $2\times 2$ resolution which would correspond to a simple MLP.
+\citet{baldi1989neural} showed that this neural-network architecture produces the same output as POD.
+Consequently low-resolution configurations were not explored also because, with such low-resolution inputs, it would be much more interesting to employ temporal signals as input in both EPOD (as shown by \citet{discetti2019characterization} and \citet{discetti2018estimation}) and ANNs (using long short-term memory for example \citep{deng2019time}).
+
+\begin{figure}
+\includegraphics{fig6.pdf}% Here is how to import EPS art
+\caption{\label{fig:wide2}Squared correlation coefficient $R^2_{\psi_i}$ of the reconstructed time coefficients. From top to bottom, wall-distance positions correspond to $y^+=[50, 100, 150, 200]$. For colour code, see table~\ref{tab:table4}.}
+\end{figure}
+
+Figure~\ref{fig:uu_cnn2} reports the reconstruction of the streamwise velocity fluctuation fields at $y^+=150$ using the largest wall-shear-stress resolution for the estimation.
+This wall distance was chosen since it has been proven that the geometrical center of the logarithmic region (defined as $y^+=3.9\sqrt{Re_{\tau}}$) is the point where high-momentum LSMs start providing a dominating effect over the near-wall small-scale fluctuations \citep{mathis2009large} (while for smaller wall distances low-momentum events are dominant).
+The streamwise velocity fluctuations at this point have been used in previous studies to predict  near-wall \citep{marusic2010predictive, mathis2011predictive} and wall-shear-stress \citep{mathis2013estimating} turbulent statistics.
+In figure~\ref{fig:uu_cnn2} an instantaneous field is compared with the low-order reconstruction performed with EPOD and with that performed with CNNs.
+The exact reconstruction using the first 10 modes is included as ground truth for reference.
+Visual inspection shows that the CNNs are able to capture the high- and low-momentum regions of the turbulent field with high accuracy.
+On the other hand, as expectable from the low $R^2$ values, EPOD reconstruction does not capture any significant flow feature.
+
+\begin{figure}
+\includegraphics{fig7.pdf}% Here is how to import EPS art
+\caption{\label{fig:uu_cnn2}Instantaneous streamwise velocity fluctuations fields reconstructed with 10 POD modes for case H150. The first row shows the instantaneous field and the reference low-order reconstruction with 10 modes. The second row shows, from left to right, EPOD reconstruction, and CNN reconstruction. All fields have been scaled with the streamwise velocity fluctuation standard deviation $\sigma _{u^{\prime}}$ of the nominal case.}
+\end{figure}
+
+A quantitative analysis is carried out by defining the error in the reconstruction of the instantaneous velocity fields as the root mean squared error of the fields scaled with the streamwise Reynolds stress:
+
+\begin{equation}
+   error=\frac{\sqrt{\overline{(u^{\prime^*}-u^{\prime})^2}}}{\sigma_{u^{\prime}}}.
+   \label{error}
+\end{equation}{}
+
+The errors reported in figure~\ref{fig:uu_epod} show that the reconstruction quality of the instantaneous fields with EPOD is rather poor, reaching levels around 100\% of streamwise Reynolds stress deviation.
+The error does not exhibit any significant dependence with the wall-shear resolution.
+Regarding CNN, it can be seen that wall-shear-stress resolution has a significant larger impact than the wall-distance position, reaching a 40\% error in the L050 case.
+This result is in agreement with the behaviour of squared correlation coefficient shown in figure~\ref{fig:wide2}.
+
+\begin{figure}
+\includegraphics{fig8.pdf}% Here is how to import EPS art
+\caption{\label{fig:uu_epod}\textcolor{black}{Mean error (according to Eq. \ref{error}) of the instantaneous streamwise velocity fluctuation fields reconstructed with the first 10 POD modes versus wall-normal positions.} For colour code, see table~\ref{tab:table4}.}
+\end{figure}
+
+The inner-scaled streamwise Reynolds stresses estimated in each of the \textcolor{black}{four} planes, accounting for the reconstructed LSM velocity fields, are reported in figure~\ref{fig:uu_epod}.
+It can be observed that CNNs provided a reasonably good estimation independently of the wall-shear-stress resolution.
+Similarly, the turbulent statistics computed with EPOD are not affected by the wall-shear-stress resolution, which is in line with the results of figure~\ref{fig:wide2}.
+EPOD is significantly underestimating the streamwise Reynolds stress values, with this effect being stronger at larger distances from the wall.
+This result is not surprising, since EPOD is a linear operator which is expected to be severely challenged when the relation between probe and field fluctuations become strongly non-linear.
+
+\begin{figure}
+\includegraphics{fig9.pdf}% Here is how to import EPS art
+\caption{\label{fig:uu_cnn}Reconstruction with 10 POD modes of inner-scaled streamwise velocity fluctuations versus the wall-normal positions. For colours, see table~\ref{tab:table4}. Nominal POD reconstruction is shown as \lsy{green}{x}{-}.}
+\end{figure}
+
+\section{\label{sec:04}Conclusions}
+
+The ability of two different data-driven techniques to reconstruct the LSMs present in a turbulent channel flow using wall-shear stress measurements has been assessed.
+Both techniques have been used to perform a low-order estimation within the POD basis described by the flow field measurements.
+The effect of the wall-shear-stress field resolution and of the wall-distance of the plane to be reconstructed have been addressed.
+
+The extended proper orthogonal decomposition (EPOD) has shown a limited capacity to reconstruct the streamwise Reynolds stress of the LSMs.
+The reconstruction performance is severely affected by the wall distance, a limit that can be addressed to impossibility to model non-linearity with EPOD.
+The reconstruction error reaches levels of 100\% streamwise Reynolds stress deviation, with a corresponding significant underestimation of the streamwise velocity fluctuations of LSMs.
+
+Convolutional neural networks (CNNs) have shown an outstanding capability to reconstruct LSMs in terms of turbulent statistics and instantaneous flow fields.
+The reconstruction performance is only weakly affected by the wall distance and the wall-shear-stress resolution.
+\textcolor{black}{Nevertheless, this effect could be addressed to the number of selected POD modes, as long as their energy content varies with wall distance.}
+In all tested cases the reconstruction error is significantly lower than the error achieved by EPOD.
+It is impressive that the reconstruction error of CNN of the most challenging case (minimum wall-shear resolution and maximum wall distance) is about one half of the error of the simplest case for EPOD (i.e. maximum wall-shear resolution and minimum wall distance).
+This opens the path to more robust estimation of flow fields from wall-data.
+
+It would be interesting, in future investigations, to analyze the capabilities of CNNs to reconstruct the LSMs in a flow with a different Reynolds number to that of the training dataset.
+This would enable flow-field reconstructions based on a single computational or experimental training. One key enabler is that POD spatial modes have been shown to be independent of the Reynolds number \citep{liu1994reynolds}.
+In the same way, it is worth analyzing whether the reconstruction algorithms trained in a turbulent channel flow would be able to obtain similar results in other canonical flows, i.e. turbulent-boundary-layer or pipe flows, suggesting a universal mechanism of non-linear interactions in wall-bounded flows.
+\textcolor{black}{Both purposes could be tackled using the transfer-learning technique, that allows to transfer knowledge acquired from a solved task, like channel-flow reconstruction, to a new one, such as the reconstruction of a pipe flow.
+For example, \citet{guastoni2020prediction} has shown that transfer learning can be used to reduce the computational cost of training a CNN for the reconstruction at a new wall distance by using a previously-trained CNN at a different wall distance.}
+
+\textcolor{black}{With respect to a future experimental set-up to test the capabilities of CNNs to reconstruct LSMs, recent investigations have shown that it is possible to obtain time-resolved heat-transfer maps with resolutions of the order of $100\times100$ \citep{nakamura2013quantitative,raiola2017towards,mallor2019modal}.
+Whereas the relationship between heat-transfer maps and wall-shear-stress measurements have been shown by \citet{mayer1998quantitative}, it might be expected that this input resolution is enough for CNNs to provide accurate LSM reconstructions.}
+
+\section*{Acknowledgements}
+This work has been partially supported by the Grant DPI2016-79401-R funded by the Spanish State Research Agency (SRA) and European Regional Development Fund (ERDF).
+ AG acknowledges Dr. A. S\'anchez for insightful discussions about CNN architecture.
+ The authors acknowledge Dr. R. Vinuesa for insightful comments and discussions.
+
+%\begin{footnotesize}
+%\bibliography{scigenbibfile.Mickey+Mouse.Donald+Duck}\bibliographystyle{IEEE}
+%\end{footnotesize}
+
+%\end{document}
